@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.scss'
-import Nav from "./Nav"
+// TODO: note that this breaks if you reference the same thing the root layout does.
+// import './globals.scss'
+import Nav from "../Nav"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <Nav />
         {children}
       </body>
     </html>

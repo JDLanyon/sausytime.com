@@ -1,14 +1,13 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>gaming</title>
-    <link rel="stylesheet" href="./src/index.scss" />
-    <script type="module" src="/src/my-element.ts"></script>
-  </head>
-  <body>
-    <simple-greeting name="gang"></simple-greeting>
-  </body>
-</html>
+<!DOCTYPE html>
+<head>
+  <script type="module" src="./src/components/panel.ts"></script>
+</head>
+<body>
+  <style>
+    /* global variables do not go here. */
+    simple-panel {
+      --text-colour: rgb(67, 156, 144);
+    }
+  </style>
+  <simple-panel href="src/pages/about" topic="test" bg_img="1.jpg"></simple-panel>
+</body>

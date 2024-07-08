@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <head>
   <script type="module" src="./src/components/panel.ts"></script>
-</head>
-<body>
+  <link rel="stylesheet" href="src/styles/globals.scss">
   <style>
-    /* global variables do not go here. */
-    simple-panel {
-      --text-colour: rgb(67, 156, 144);
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      height: 100%;
     }
   </style>
-  <simple-panel href="src/pages/about" topic="test" bg_img="1.jpg"></simple-panel>
+</head>
+<body>
+  <div class="container">
+    <simple-panel href="src/pages/about" topic="this is a site" bg_img="1.jpg"></simple-panel>
+    <simple-panel href="src/pages/about" topic="this is a site" bg_img="2.jpg"></simple-panel>
+    <simple-panel href="src/pages/about" topic="this is a site" bg_img="3.jpg"></simple-panel>
+  </div>
 </body>

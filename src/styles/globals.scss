@@ -1,0 +1,30 @@
+// TODO: this is from vite, change this eventually.
+
+:root {
+
+  // global properties
+  --text-colour: #ddd;
+  --primary-colour: #0ff;
+  --secondary-colour:#222;
+
+  // font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: ui-monospace, Menlo, Monaco, monospace;
+
+  color-scheme: light dark;
+  color: var(--text-colour, #ddd);
+  background-color: var(--secondary-colour, #ddd);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+// TODO: later problem
+// @media (prefers-color-scheme: light) {
+//   :root {
+//     color: #213547;
+//     background-color: #ffffff;
+//   }
+// }

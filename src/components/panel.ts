@@ -32,6 +32,7 @@ export class Panel extends LitElement {
       min-width: 100%;
       min-height: 100%
     }
+
     .panel:hover .panel_bg {
         filter: blur(0);
     }`;
@@ -44,9 +45,9 @@ export class Panel extends LitElement {
   render() {
     return html`
       <div class="panel" href="/${this.href}">
-        <div class="panel_bg" style="background-image: url('/images/${this.bg_img}');">
-          <!-- <img src="/images/2.jpg" alt="Background Image" /> -->
-        </div>
+        <!-- <div class="panel_bg" style="background-image: url('/images/${this.bg_img}');"> -->
+          <!-- <img src="/images/${this.bg_img}" alt="Background Image" /> -->
+        <!-- </div> -->
 
         <div class="panel_fg">
           <h1>${this.topic}</h1>

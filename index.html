@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <head>
   <script type="module" src="./src/components/panel.ts"></script>
+  <link rel="stylesheet" href="src/styles/index.scss">
   <link rel="stylesheet" href="src/styles/globals.scss">
-  <style>
-    .container {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      height: 100%;
-    }
-  </style>
+
+  <!-- TODO: ew google (I mean you're using google shit anyways (lit)) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <simple-panel href="src/pages/about" topic="this is a site" bg_img="1.jpg"></simple-panel>
-    <simple-panel href="src/pages/about" topic="this is a site" bg_img="2.jpg"></simple-panel>
-    <simple-panel href="src/pages/about" topic="this is a site" bg_img="3.jpg"></simple-panel>
+  <!-- Text to disappear on any hover -->
+  <div class="underlay">
+    <div class="splash">
+      <h1>website</h1>
+      <p>welcum 2 my websit :)</p>
+    </div>
+  </div>
+  <img src='/images/1.jpg' style="transition: ease-in-out 4s;" onmouseover="this.src='/images/2.jpg';" onmouseout="this.src='/images/1.jpg';" />
+  <div class="panel-container">
+    <simple-panel href="src/pages/about" topic="1" bg_img="1.jpg"></simple-panel>
+    <simple-panel href="src/pages/about" topic="2" bg_img="2.jpg"></simple-panel>
+    <simple-panel href="src/pages/about" topic="3" bg_img="3.jpg"></simple-panel>
   </div>
 </body>

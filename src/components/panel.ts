@@ -6,6 +6,7 @@ import {customElement, property} from 'lit/decorators.js';
 export class Panel extends LitElement {
   static styles = css`
     .panel {
+      height: 100%;
       color: var(--text-colour, #fff); /* idk bro I want a global variable */
       text-decoration: none;
       display: block;
@@ -44,12 +45,12 @@ export class Panel extends LitElement {
 
   render() {
     return html`
-      <div class="panel" href="/${this.href}">
+      <div class="panel">
         <!-- <div class="panel_bg" style="background-image: url('/images/${this.bg_img}');"> -->
           <!-- <img src="/images/${this.bg_img}" alt="Background Image" /> -->
         <!-- </div> -->
 
-        <div class="panel_fg">
+        <div class="panel_fg" onclick="location.href='${this.href}';">
           <h1>${this.topic}</h1>
           <p>${this.description}</p>
         </div>

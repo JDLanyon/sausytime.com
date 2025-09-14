@@ -9,7 +9,6 @@ import { SiGithub } from "@icons-pack/react-simple-icons";
 // TODO: Props
 export default async function Project() {
   return (
-    <Modal>
       <div>
         {/* <div className="flex absolute left-4 top-4 transform">
           <Button text="View on GitHub" href="" target_blank><SiGithub /></Button>
@@ -24,6 +23,5 @@ export default async function Project() {
         {/* TODO: write more on this shi */}
         <p className="text-center my-8">More information coming soon {":>"}</p>
       </div>
-    </Modal>
   )
 }

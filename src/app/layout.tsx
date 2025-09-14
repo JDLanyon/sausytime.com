@@ -41,6 +41,7 @@ export default function RootLayout({
       <body className="min-h-[100vh]">
         <ThemeProvider defaultTheme="dark" enableSystem={false}>
         {/* {modal} */}
+        <div id="modal-root"></div>
         {children}
         </ThemeProvider>
       </body>

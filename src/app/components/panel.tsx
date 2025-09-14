@@ -1,18 +1,23 @@
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
+import Modal from "@/app/components/modal";
+import {useState} from "react";
 
 import "../globals.css";
+import Button from "./button";
 
 
 interface PanelProps {
-  id?: string;
+  id: string;
   title?: string;
   thumbnail?: string;
   description?: string;
 }
 
 interface PanelsFromDataProps {
-  id? : string,
+  id : string,
   category : string,
   sub_category?: string,
   heading? : string,
@@ -27,27 +32,48 @@ const imageExists = async (path : string) => {
 };
 
 // the PanelProps[] datatype was big brain fr
-export async function PanelsFromData({id, category, sub_category, heading, thumbnails_path, data} : PanelsFromDataProps) {
+export function PanelsFromData({id, category, sub_category, heading, thumbnails_path, data} : PanelsFromDataProps) {
+
+  // TODO:idk why this shit won't work
+  const [modalStates, setModalStates] = useState<Record<string, boolean>>({});
+
+  const openModal = (id: string) => setModalStates({ ...modalStates, [id]: true });
+  const closeModal = (id: string) => setModalStates({ ...modalStates, [id]: false });
+
   return (
     <div id={id}>
       <h2>{heading}</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-min items-center justify-items-center p-8 gap-16">
+      {/* map projects from `data` */}
       {data.map(p => (
-        <Link key={`${p.id}`} href={`/${category}/${sub_category}/${p.id}`} passHref>
         
+        // <Link key={`${p.id}`} href={`/${category}/${sub_category}/${p.id}`} passHref>
+        <div key={`${p.id}`} onClick={() => openModal(p.id)}>
+          <a className="z-100 absolute">
+          <Button onClick={() => closeModal(p.id)} text="outside of modal"/>
+
+          </a>
+          {modalStates[p.id] && 
+          <Modal onClose={() => closeModal(p.id)}>
+            test
+            <Button onClick={() => closeModal(p.id)} text="x" />
+            <Button onClick={() => console.log(modalStates)} text="print shit" />
+          </Modal>
+          }
+          
         {thumbnails_path ? 
         <Panel id={p.id} title={p.title} description={p.description} thumbnail={`${thumbnails_path}${p.id}/${p.thumbnail ? p.thumbnail : "thumbnail.png"}`} /> :
         <Panel id={p.id} title={p.title} description={p.description} /> }
 
         {/* <Panel id={p.id} title={p.title} description={p.description} thumbnail={`${thumbnails_path}${p.id}/thumbnail.png`} /> */}
-      </Link>
+      </div>
       ))}
       </div>
     </div>
   );
 }
 
-export default async function Panel({id, title, thumbnail, description} : PanelProps) {
+export default function Panel({id, title, thumbnail, description} : PanelProps) {
   // if there's no title use id
   if (!title && id) title=id;
 

@@ -10,7 +10,7 @@ interface ButtonProps {
   text?: string;
   href?: string;
   target_blank?: boolean;
-  onClick?: React.MouseEventHandler;
+  onClick?: any;
   children?: React.ReactNode;
 }
 

@@ -25,8 +25,8 @@ export default function MotionGraphics() {
 
         {/* TODO: Replace the project_data.tsx with dynamically searching in /public/ */}
 
-        <PanelsFromData id="snippets" category="motion_graphics" sub_category="snippets" heading="Snippets" thumbnails_path="/motion_graphics/snippets/" data={MOTION_GRAPHICS.SNIPPETS} />
-        <PanelsFromData id="full-projects" category="motion_graphics" sub_category="full_projects" heading="Full Projects" thumbnails_path="/motion_graphics/full_projects/" data={MOTION_GRAPHICS.FULL_PROJECTS} />
+        <PanelsFromData id="snippets" heading="Snippets" path="/motion_graphics/snippets" data={MOTION_GRAPHICS.SNIPPETS} />
+        <PanelsFromData id="full-projects" heading="Full Projects" path="/motion_graphics/full_projects" data={MOTION_GRAPHICS.FULL_PROJECTS} />
         
       </div>
       <Footer />

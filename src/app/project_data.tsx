@@ -3,7 +3,8 @@ export const PROGRAMMING = {
     {
       id : "IGB400",
       title : "IGB400 - Slime Arcade",
-      description : "An arcade themed slime pet simulator (GoDot)"
+      description : "An arcade themed slime pet simulator (GoDot)",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "IGB388",
@@ -56,28 +57,34 @@ export const MOTION_GRAPHICS = {
     {
       id : "biv_mother_father",
       title : "Biv - Mother//Father",
-      description : "Heavy distortion and flashing filters"
+      description : "Heavy distortion and flashing filters",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "guccihighwaters_i_aint_feeling_better",
       title : "guccihighwaters - I ain't feeling better",
-      description : "Dynamic wavy text with chroma abberation and grain"
+      description : "Dynamic wavy text with chroma abberation and grain",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "heylog_afraid",
-      title : "heylog - afraid"
+      title : "heylog - afraid",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "heylog_simulation",
-      title : "heylog - simulation"
+      title : "heylog - simulation",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "hiraeth_bless_you",
-      title : "hiraeth - bless you"
+      title : "hiraeth - bless you",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "hiraeth_slept_through_everything",
-      title : "hiraeth - slept through everything"
+      title : "hiraeth - slept through everything",
+      thumbnail: "thumbnail.png"
     },
   ],
 
@@ -85,37 +92,45 @@ export const MOTION_GRAPHICS = {
     {
       id : "heylog_backroom",
       title : "heylog - backroom",
-      description : "My first lyric video"
+      description : "My first lyric video",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "hiraeth_newmaker_IV",
       title : "hiraeth - newmaker IV",
-      description : "My most recent lyric video"
+      description : "My most recent lyric video",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "hiraeth_battle_scared",
       title: "hireath ft. heylog, pvrk - battle scarred",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "sinxi_eyes",
       title : "sinxi - eyes",
-      description : "a slower paced cinematic aesthetic with time remapping"
+      description : "a slower paced cinematic aesthetic with time remapping",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "hiraeth_sink",
-      title: "hiraeth ft. kais - sink"
+      title: "hiraeth ft. kais - sink",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "hiraeth_violent",
       title : "hiraeth - violent",
+      thumbnail: "thumbnail.png"
     },
         {
       id : "sadeyes_poison",
       title : "sadeyes - poison",
+      thumbnail: "thumbnail.png"
     },
     {
       id : "rouri404_lostcause",
       title : "rouri404 ft. heylog - lostcause",
+      thumbnail: "thumbnail.png"
     },
   ]
 }

@@ -57,7 +57,7 @@ export default function Nav() {
   }
 
   return (
-    <nav className="z-10 grid grid-cols-7 w-screen gap-8 items-center justify-center text-center fixed top-0">
+    <nav className="z-10 grid grid-cols-7 w-screen items-center justify-center text-center fixed top-0">
       {/* left side */}
       <div className="col-start-2 col-span-2 mx-auto gap-16 hidden md:relative md:flex">
         <NavButton text="Home" href="/" />
@@ -86,10 +86,8 @@ export default function Nav() {
       {/* mobile options */}
 
       {/* burger menu */}
-      <div className="grid col-start-7 h-full w-full place-items-center mx-auto gap-16 md:hidden" onClick={async () => {
-          console.log("hi");
-        }}>
-        <Menu color="var(--secondary)" onClick={MenuToggle} className={`w-full transition-transform duration-300 transform ${isMenuOpen ? 'translate-x-full' : 'translate-x-0'}`} />
+      <div className="grid col-start-7 h-full w-full place-items-center mx-auto gap-8 md:hidden">
+        <Menu color="var(--secondary)" onClick={MenuToggle} className={`w-max transition-transform duration-300 transform ${isMenuOpen ? 'translate-x-full' : 'translate-x-0'}`} />
         <MobileMenu is_open={isMenuOpen} toggle={MenuToggle}/>
 
       </div>

@@ -9,6 +9,7 @@ import { SiGithub, SiInstagram, SiYoutube } from '@icons-pack/react-simple-icons
 import { Circle, Eclipse, Moon, Linkedin } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
+import Link from "next/link";
 
 const ThemeSwitch = () => {
   const [mounted, setMounted] = useState(false)
@@ -48,53 +49,53 @@ const ThemeSwitch = () => {
   )
 }
 
-export default function Footer({large = false, absolute = false} : {large? : boolean, absolute? : boolean}) {
+export default function Footer({home_page = false} : {home_page? : boolean}) {
   return (
-    <footer className={`z-1 mt-auto flex w-full mx-auto items-center justify-center bottom-0 ${large ? "py-16 gap-[10%] text-lg px-30 sm:px-0 sm:flex sm:flex-wrap" : "py-8 gap-8"} ${absolute ? "absolute" : "relative"}`}>
+    <footer className={`relative w-min mx-auto flex-col mb-4 md:flex md:flex-row gap-8 items-center justify-center ${home_page ? "lg:z-1 lg:bottom-0 lg:absolute lg:left-0 lg:right-0" : ""}`}>
       {/* Github */}
-      <a
-        className="flex items-center gap-2 p-2 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
+      <Link
+        className="flex w-min mx-auto gap-2 my-4 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
         href="https://github.com/JDLanyon"
         target="_blank"
         rel="noopener noreferrer"
       >
         <SiGithub color="var(--secondary)" />
         GitHub
-      </a>
+      </Link>
 
       {/* LinkedIn */}
-      <a
-        className="flex items-center gap-2 p-2 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
+      <Link
+        className="flex w-min mx-auto gap-2 my-4 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
         href="https://www.linkedin.com/in/jdlanyon/"
         target="_blank"
         rel="noopener noreferrer"
       >
         <Linkedin color="var(--secondary)" />
         LinkedIn
-      </a>
+      </Link>
 
       {/* Youtube */}
-      <a
+      <Link
         title="branded account"
-        className="flex items-center gap-2 p-2 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
+        className="flex w-min mx-auto gap-2 my-4 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
         href="https://www.youtube.com/@sausytime"
         target="_blank"
         rel="noopener noreferrer"
       >
         <SiYoutube color="var(--secondary)" />
         YouTube
-      </a>
+      </Link>
 
       {/* Instagram */}
-      <a
-        className="flex items-center gap-2 p-2 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
+      <Link
+        className="flex w-min mx-auto gap-2 my-4 hover:underline hover:underline-offset-4 text-[var(--secondary)]"
         href="https://www.instagram.com/sausytime/"
         target="_blank"
         rel="noopener noreferrer"
       >
         <SiInstagram color="var(--secondary)" />
         Instagram
-      </a>
+      </Link>
 
       <ThemeSwitch />
     </footer>

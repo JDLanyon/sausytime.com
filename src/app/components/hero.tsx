@@ -6,7 +6,7 @@ import Button from "./button";
 
 export default function Hero() {
   return (
-    <div id="hero" className="justify-items-center h-min p-8 my-8 flex flex-col gap-8 items-center text-center z-1">
+    <div id="hero" className="flex flex-col items-center h-full p-8 gap-8 text-center z-1">
       <Image
         className="invert mx-auto light:invert-0"
         src="/lotus.svg"

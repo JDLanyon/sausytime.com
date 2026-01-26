@@ -11,7 +11,7 @@ export default function Programming() {
   return (
     <section className="min-h-screen flex flex-col">
       <Nav />
-        <div id="content" className="px-32 py-8 mt-16">
+        <div id="content" className="mx-8 md:mx-16 lg:mx-32 py-8 mt-8">
           <div className="flex gap-4 w-full mx-auto items-center justify-center">
             <Button text="Uni Projects" href="#uni" />
           </div>

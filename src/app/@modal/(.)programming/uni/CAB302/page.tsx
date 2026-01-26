@@ -13,7 +13,7 @@ export default async function Project() {
         <div className="flex absolute left-4 top-4 transform">
           <Button text="View on GitHub" href="https://github.com/JDLanyon/IFB399_BeeAware_Hive_Inspections" target_blank><SiGithub /></Button>
         </div>
-        <h1 className="text-center m-0 mb-8">BeeAware Hive Inspections Plugin</h1>
+        <h1 className="text-center m-0 mb-8">Task Tank</h1>
 
         <div className="flex flex-wrap *:p-2">
           <Image

@@ -37,10 +37,10 @@ export default function About() {
               
               <h2>Interests</h2>
               <ul>
-                <li>Programming (of course)</li>
-                <li>Early morning bike riding, skating & calisthenics</li>
+                <li>Programming</li>
+                <li>Early morning bike rides & calisthenics</li>
                 <li>Vibing to music</li>
-                <li>Gaming but mainly stick to a handful over a long period, with rocket league being my most played.</li>
+                <li>Gaming</li>
                 <li>My core interest in software development came from Minecraft shaping a significant part of my childhood.</li>
               </ul>
               {/* <h2>Goals and ambition</h2> */}

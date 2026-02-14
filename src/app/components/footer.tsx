@@ -1,100 +1,84 @@
-"use client"
+'use client'
 
-import "@/app/globals.css";
-import Button from "./button";
 
-import { SiGithub, SiInstagram, SiYoutube } from '@icons-pack/react-simple-icons';
-import { Circle, Moon, Linkedin } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
-import Link from "next/link";
+import Link from 'next/link';
+import { SiGithub, SiInstagram, SiYoutube } from '@icons-pack/react-simple-icons';
+import { Circle, Moon, Linkedin, SunMoon } from 'lucide-react';
+import Button from './button';
 
-const ThemeSwitch = () => {
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-  const [isHovering, setIsHovered] = useState(false);
-  const onMouseEnter = () => setIsHovered(true);
-  const onMouseLeave = () => setIsHovered(false);
 
-  // useEffect only runs on the client, so now we can safely show the UI
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  if (!mounted) {
-    return null
-  }
-
+function Tooltip({ children, text }: { children: React.ReactNode; text: string }) {
   return (
-    <div id="theme_switch"
-      className="transition"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}>
-
-      {theme != 'light' ? 
-        <Button onClick={() => setTheme('light')}>
-          {isHovering ? <Circle /> : <Moon /> }
-        </Button> : null
-      }
-
-      {theme != 'dark' ? 
-        <Button onClick={() => setTheme('dark')}>
-          {isHovering ? <Moon /> : <Circle /> }
-        </Button> : null
-      }
-
+    <div className='relative group'>
+      {children}
+      <span
+        role='tooltip'
+        className='absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
+                   opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 
+                   transition-all duration-500 ease-in-out text-(--secondary)'
+      >
+        {text}
+      </span>
     </div>
-  )
+  );
 }
 
-export default function Footer({landingPage = false} : {landingPage? : boolean}) {
+const socialLinks = [
+  { href: 'https://github.com/JDLanyon', icon: SiGithub, label: 'GitHub' },
+  { href: 'https://www.linkedin.com/in/jdlanyon/', icon: Linkedin, label: 'LinkedIn' },
+  { href: 'https://www.youtube.com/@sausytime', icon: SiYoutube, label: 'YouTube' },
+  { href: 'https://www.instagram.com/sausytime/', icon: SiInstagram, label: 'Instagram' },
+];
+
+function ThemeSwitch() {
+  const [mounted, setMounted] = useState(false);
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
+  const icon = theme === 'light' ? <Circle /> : theme === 'dark' ? <Moon /> : <SunMoon />;
+  const cycleTheme = () => {
+    if (theme === 'light') setTheme('dark');
+    else if (theme === 'dark') setTheme('system');
+    else setTheme('light');
+  };
+
+  const tooltipText = theme === 'light' ? 'Light mode' : theme === 'dark' ? 'Dark mode' : 'System theme';
+
   return (
-    <footer className={`relative z-1 w-min flex-col flex md:flex-row items-baseline mx-auto my-8 ${landingPage ? 'md:absolute md:bottom-8 md:left-0 md:right-0' : ''}`}>
-      {/* Github */}
-      <Link
-        className="flex gap-2 p-2 hover:underline hover:underline-offset-4 text-(--secondary)"
-        href="https://github.com/JDLanyon"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <SiGithub color="var(--secondary)" />
-        <p>GitHub</p>
-      </Link>
+    <Tooltip text={tooltipText}>
+      <Button onClick={cycleTheme} md_invert={false}>
+        {icon}
+      </Button>
+    </Tooltip>
+  );
+}
 
-      {/* LinkedIn */}
-      <Link
-        className="flex gap-2 p-2 hover:underline hover:underline-offset-4 text-(--secondary)"
-        href="https://www.linkedin.com/in/jdlanyon/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Linkedin color="var(--secondary)" />
-        <p>LinkedIn</p>
-      </Link>
 
-      {/* Youtube */}
-      <Link
-        className="flex gap-2 p-2 hover:underline hover:underline-offset-4 text-(--secondary)"
-        href="https://www.youtube.com/@sausytime"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <SiYoutube color="var(--secondary)" />
-        <p>YouTube</p>
-      </Link>
-
-      {/* Instagram */}
-      <Link
-        className="flex gap-2 p-2 hover:underline hover:underline-offset-4 text-(--secondary)"
-        href="https://www.instagram.com/sausytime/"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <SiInstagram color="var(--secondary)" />
-        <p>Instagram</p>
-      </Link>
-
+export default function Footer({ landingPage = false }: { landingPage?: boolean }) {
+  return (
+    <footer
+      className={`
+        flex flex-row flex-wrap items-center justify-center gap-2 py-4 whitespace-nowrap
+        ${landingPage ? 'md:absolute md:bottom-8 md:left-0 md:right-0' : ''}
+      `}
+    >
+      {socialLinks.map(({ href, icon: Icon, label }) => (
+        <Link
+          key={href}
+          href={href}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='flex gap-2 p-2 hover:underline hover:underline-offset-4 text-(--secondary)'
+        >
+          <Icon color='var(--secondary)' />
+          <p>{label}</p>
+        </Link>
+      ))}
       <ThemeSwitch />
     </footer>
-  )
+  );
 }

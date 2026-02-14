@@ -6,23 +6,23 @@ import { Glitch, GlitchHandle } from './glitch';
 
 interface GlitchLinkProps {
   href: string;
-  children: string;        // the text to glitch
+  children: string;
   className?: string;
-  underlineDuration?: number; // default 600ms
+  underlineDuration?: number;
 }
 
 export function GlitchLink({
   href,
   children,
   className = '',
-  underlineDuration = 600,
+  underlineDuration = 200,
 }: GlitchLinkProps) {
   const glitchRef = useRef<GlitchHandle>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    glitchRef.current?.glitch(); // 🚀 trigger glitch once
+    glitchRef.current?.glitch();
   };
 
   const handleMouseLeave = () => {
@@ -36,22 +36,19 @@ export function GlitchLink({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Glitch instance – no auto loop, only manual trigger */}
       <Glitch
         ref={glitchRef}
-        autoGlitch={false}
-        names={[children]}    // single name – no cycling
+        autoGlitch={false}          // ← only on hover
+        names={[children]}
         className="relative inline-block"
-        glitchIntensity={0.9}
       />
 
-      {/* Underline – slides from left to right on hover */}
       <span
-        className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all"
+        className="absolute bottom-0 left-0 h-0.5 w-full md:w-0 md:group-hover:w-full transition-all"
         style={{
           background: 'linear-gradient(to right, var(--secondary), var(--primary))',
           transitionDuration: `${underlineDuration}ms`,
-          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)', // ease-in-out
+          transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
           transitionProperty: 'width',
         }}
         aria-hidden="true"

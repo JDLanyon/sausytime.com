@@ -26,7 +26,6 @@ body {
 }
 
 h1 {
-  padding-top: 16px;
   font-family: var(--font-overpass);
   font-size: 80px;
 }
@@ -37,7 +36,7 @@ h2 {
 }
 
 h3 {
-  font-size: 1.em;
+  font-size: 1rem;
 }
 
 a {
@@ -156,13 +155,10 @@ a {
 
 /* effect 5 - double invert flash */
 @keyframes invert-flash {
-  0%, 60%, 100% { 
+  0%, 30%, 60%, 100% { 
     filter: invert(0); 
   }
-  20% { 
-    filter: invert(1); 
-  }
-  40% { 
+  20%, 40%, 70% { 
     filter: invert(1); 
   }
 }

@@ -3,8 +3,9 @@
 import { useEffect, useRef } from 'react';
 import { GlitchPhase } from '../glitch_state';
 
-const MAX_SHAKE_OFFSET = 3;
-const SHAKE_STEPS = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9] as const;
+
+const MAX_SHAKE_OFFSET = 6;
+const SHAKE_STEPS = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
 
 interface ShakeEffectProps {
   intensity: number;
@@ -59,8 +60,8 @@ export function ShakeEffect({ intensity, duration, phase, children, className = 
   }, [phase, intensity, duration]);
 
   return (
-    <div ref={ref} className={className}>
+    <span ref={ref} className={className}>
       {children}
-    </div>
+    </span>
   );
 }

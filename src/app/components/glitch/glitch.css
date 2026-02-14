@@ -1,9 +1,9 @@
 :root {
   --glitch-duration: 80ms;
-  --glitch-chroma-base: 4px;
-  --glitch-blur-base: 0.5px;
-  --glitch-noise-opacity: 0.2;
-  --glitch-chroma-opacity: 0.6;
+  --glitch-chroma-base: 12px;
+  --glitch-blur-base: 1px;
+  --glitch-noise-opacity: 0.4;
+  --glitch-chroma-opacity: 1;
 }
 
 @keyframes glitch-chroma {
@@ -13,7 +13,7 @@
 
 @keyframes glitch-noise {
   0%, 100% { opacity: 0; }
-  20%, 80% { opacity: calc(var(--noise-intensity, 0) * var(--glitch-noise-opacity)); }
+  20%, 80% { opacity: calc(var(--noise-intensity, 0) * 0.5); } /* was 0.2 */
 }
 
 .animate-glitch-chroma {

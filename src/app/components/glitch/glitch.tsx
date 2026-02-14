@@ -1,5 +1,6 @@
 'use client';
 
+
 import React, {
   ReactNode,
   useEffect,
@@ -19,56 +20,46 @@ import { FlickerEffect } from './effects/flicker';
 
 import './glitch.css';
 
-// 🆕 Handle type
+
 export interface GlitchHandle {
   glitch: () => void;
 }
 
 interface GlitchProps {
+  names?: string[];
   duration?: number;
   delay?: number;
   variance?: number;
-  className?: string;
-  children?: ReactNode;
-  names?: string[];
   glitchCountForFlash?: number;
   glitchIntensity?: number;
-
-  // Layout stabilisation
+  minEffects?: boolean;
+  className?: string;
+  children?: ReactNode;
+  nameSwitchProbability?: number;
   preserveSpace?: boolean;
-  minWidth?: string | number;
-  inline?: boolean;
-
-  // 🆕 Manual trigger & loop control
   autoGlitch?: boolean;
   onGlitchComplete?: () => void;
 }
 
 export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
-  duration: _unused,
-  delay = 6000,
+  names,
+  duration = 200,
+  delay = 3000,
   variance = 500,
+  glitchCountForFlash = 5,
+  glitchIntensity = 1,
+  minEffects = false,
   className = '',
   children,
-  names,
-  glitchCountForFlash = 3,
-  glitchIntensity = 1,
-  preserveSpace = false,
-  minWidth,
-  inline = false,
+  nameSwitchProbability = 0.1,
+  preserveSpace = true,
   autoGlitch = true,
   onGlitchComplete,
 }, ref) => {
   const isNameMode = !!names && names.length > 0;
-  const nameCycler = isNameMode ? useNameCycler(names!) : null;
+  const nameCycler = isNameMode ? useNameCycler(names!, nameSwitchProbability) : null;
 
-  const isFirstName = nameCycler?.currentIdx === 0;
-  const effectiveDelay = isFirstName ? delay * 2 : delay;
-
-  // 🆕 Force reschedule when effectiveDelay changes
-  const delayKey = `${effectiveDelay}-${nameCycler?.currentIdx}`;
-  
-  // Measurement (unchanged)
+  // Measure widest name
   const measureRef = useRef<HTMLSpanElement>(null);
   const [maxNameWidth, setMaxNameWidth] = useState<number | null>(null);
 
@@ -98,27 +89,32 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
     setMaxNameWidth(max);
   }, [preserveSpace, names]);
 
-  // 🆕 Pass autoGlitch to useGlitchState
   const { phase, intensity, isInverted, displacement, glitchDuration, triggerGlitch } = useGlitchState({
-    delay: effectiveDelay,
+    duration,
+    delay,
     variance,
     glitchCountForFlash,
     glitchIntensity,
     enabled: autoGlitch,
-    delayKey,
   });
 
-  // 🆕 Expose triggerGlitch via ref
   useImperativeHandle(ref, () => ({
     glitch: triggerGlitch,
   }));
 
-  // 🆕 Fire callback when glitch finishes
   useEffect(() => {
     if (phase === 'idle') {
       onGlitchComplete?.();
     }
   }, [phase, onGlitchComplete]);
+
+  // 🎲 Decide once per glitch whether to flicker (30% chance)
+  const flickerRef = useRef(false);
+  useEffect(() => {
+    if (phase === 'active') {
+      flickerRef.current = Math.random() <= 0.3; // 30% chance
+    }
+  }, [phase]);
 
   useEffect(() => {
     if (!nameCycler) return;
@@ -143,17 +139,11 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
     return mainContent;
   })();
 
-  const widthStyle: React.CSSProperties = {};
+  const widthStyle: React.CSSProperties = {
+    display: 'inline-block',
+  };
   if (preserveSpace && maxNameWidth !== null) {
     widthStyle.minWidth = maxNameWidth;
-  }
-  if (minWidth !== undefined) {
-    widthStyle.minWidth = minWidth;
-  }
-  if (inline) {
-    widthStyle.display = 'inline';
-  } else {
-    widthStyle.display = 'inline-block';
   }
 
   return (
@@ -172,26 +162,24 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
         }}
       >
         <ShakeEffect intensity={intensity} duration={glitchDuration} phase={phase}>
-          <div className="relative z-10">{mainContent}</div>
+          <span className="relative z-10">{mainContent}</span>
         </ShakeEffect>
 
-        {phase !== 'idle' && (
-          <ChromaticAberrationEffect
-            intensity={intensity}
-            displacement={displacement}
-            duration={glitchDuration}
-          >
-            {chromaContent}
-          </ChromaticAberrationEffect>
-        )}
+        <ChromaticAberrationEffect
+          intensity={intensity}
+          displacement={displacement}
+          duration={glitchDuration}
+        >
+          {chromaContent}
+        </ChromaticAberrationEffect>
 
-        <MotionBlurEffect intensity={intensity} />
-        <NoiseEffect intensity={intensity} duration={glitchDuration} />
-        <ScanlineEffect intensity={intensity} duration={glitchDuration} />
-        <FlickerEffect phase={phase} />
+        <MotionBlurEffect intensity={intensity * 1.5} />
+        {/* <NoiseEffect intensity={intensity * 1.5} duration={glitchDuration} /> */}
+        {!minEffects && <ScanlineEffect intensity={intensity * 1.5} duration={glitchDuration} />}
+        {!minEffects && <FlickerEffect phase={phase} shouldFlicker={flickerRef.current} />}
       </span>
     </span>
   );
 });
 
-Glitch.displayName = 'Glitch'; // helpful for debugging
+Glitch.displayName = 'Glitch';

@@ -8,8 +8,8 @@ interface NoiseEffectProps {
 export function NoiseEffect({ intensity, duration }: NoiseEffectProps) {
   if (intensity === 0) return null;
   return (
-    <div
-      className="absolute inset-0 z-5 pointer-events-none animate-glitch-noise"
+    <span
+      className="absolute inset-0 z-6 pointer-events-none animate-glitch-noise"
       style={{
         '--noise-intensity': intensity,
         '--glitch-duration': `${duration}ms`,

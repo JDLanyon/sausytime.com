@@ -76,17 +76,18 @@ This project was built with [Next.js](https://nextjs.org/) using the app router.
 
 - [x] Custom 404
 - [x] Add CAB302 Project (Task Tank)
-- [x] Add tags
-- [x] Update Readme
+- [x] Add tags to projects
+- [x] Update to a structured readme
 - [ ] Allow System Theme
-- [ ] Add modal content for remaining uni projects
-    - [ ] CAB302 (Task Tank)
-    - [ ] CAB401 (Parallel Processing Analysis)
-    - [ ] IGB383 (Boids and State Machines)
-    - [ ] CAB201 (Mates Rates - CLI)
-    - [ ] CAB301 (Tool Library - CLI)
-- [ ] Modal content for the Motion Graphics stuff and any other non uni things
-- [ ] Pull readme data from GitHub modal content
+- [ ] Add modal content for remaining projects;
+  - [ ] CAB302 (Task Tank)
+  - [ ] CAB401 (Parallel Processing Analysis)
+  - [ ] IGB383 (Boids and State Machines)
+  - [ ] CAB201 (Mates Rates - CLI)
+  - [ ] CAB301 (Tool Library - CLI)
+- [ ] Modal content fallbacks
+  - [ ] Pull readme data from GitHub
+  - [ ] fallback to displaying remaining available data on selected project
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -103,9 +104,10 @@ Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 <!-- contact -->
 <h2 id="contact">Contact</h2>
 
+[![Discord][discord-shield]][discord-url]
+[![Instagram][instagram-shield]][instagram-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 [![Email][email-shield]][email-url]
-
 
 <!-- [@your_twitter](https://twitter.com/your_username) - [jlany9@hotmail.com](mailto:jlany9@hotmail.com) -->
 
@@ -114,8 +116,12 @@ Distributed under the Unlicense License. See `LICENSE.txt` for more information.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[discord-shield]: https://img.shields.io/badge/-Discord-black?style=for-the-badge
+[discord-url]: https://discord.gg/ru3KZRg
 [email-shield]: https://img.shields.io/badge/-Email-black?style=for-the-badge
 [email-url]: mailto:jlany9@hotmail.com
+[instagram-shield]: https://img.shields.io/badge/-Instagram-black?style=for-the-badge
+[instagram-url]: https://www.instagram.com/sausytime/
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black?style=for-the-badge
 [linkedin-url]: https://linkedin.com/in/jdlanyon
 [nextjs-shield]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white

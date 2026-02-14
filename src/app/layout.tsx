@@ -24,7 +24,7 @@ const doto = Doto({
 })
 
 export const metadata: Metadata = {
-  title: "JDLanyon - Portfolio",
+  title: "Sausytime - Designer Portfolio",
   description: "made with nextjs and love :>",
 };
 

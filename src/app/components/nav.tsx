@@ -2,101 +2,102 @@
 
 import { useState } from "react";
 import Image from "next/image";
-
-import "@/app/globals.css";
-import { Menu, X } from 'lucide-react';
-import { usePathname } from 'next/navigation'
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
 
 
-function NavButton({text, href} : {text : string, href : string}) {
-  if (href == usePathname()) {
-    return (<a
-    className="flex items-center text-(--primary) font-bold"
-    rel="noopener noreferrer"
-  >
-    {text}
-  </a>);
-  } {
-    return (<a
-    className="flex items-center hover:underline hover:underline-offset-4 text-(--secondary)"
-    href={href}
-    rel="noopener noreferrer"
-  >
-    {text}
-  </a>);
-  }
+const navLinks = [
+  { name: 'Home', href: '/', position: 'left' },
+  { name: 'About', href: '/about', position: 'left' },
+  { name: 'Programming', href: '/programming', position: 'right' },
+  { name: 'Motion Graphics', href: '/motion_graphics', position: 'right' },
+];
+
+function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const isActive = usePathname() === href;
+  return (
+    <a
+      href={href}
+      className={`flex items-center ${isActive ? 'text-(--primary) font-bold' : 'text-(--secondary) hover:underline hover:underline-offset-4'}`}
+      rel="noopener noreferrer"
+    >
+      {children}
+    </a>
+  );
 }
 
-function MobileMenu({ is_open, toggle } : {is_open : boolean, toggle : React.MouseEventHandler}) {
+function MobileMenu({ isOpen, toggle }: { isOpen: boolean; toggle: React.MouseEventHandler }) {
   return (
     <div
-      className={`fixed flex flex-col justify-center items-center z-10 top-0 right-0 h-full w-full bg-(--background)/80 transition-transform duration-300 transform ${
-        is_open ? 'translate-x-0' : 'translate-x-full'
+      className={`fixed flex flex-col z-10 top-0 right-0 h-full w-full bg-(--background)/80 transition-transform duration-300 transform ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
       }`}
     >
-      <X color="var(--secondary)" onClick={toggle} className="fixed right-8 top-8"/>
-      <div className="flex flex-col justify-center items-center space-y-8">
-          <NavButton text="Home" href="/" />
-          <NavButton text="About" href="/about" />
-          <NavButton text="Programming" href="/programming" />
-          <NavButton text="Motion Graphics" href="/motion_graphics" />
+      {/* Top bar – invisible copy of the navbar to place the X exactly where the burger was */}
+      <div className="grid grid-cols-7 w-screen gap-8 items-center h-16">
+        {/* Left side (invisible) */}
+        <div className="col-start-2 col-span-2 mx-auto gap-16 flex invisible">
+          {navLinks.filter(l => l.position === 'left').map(l => (
+            <NavLink key={l.href} href={l.href}>{l.name}</NavLink>
+          ))}
+        </div>
+        {/* Lotus (invisible) */}
+        <div className="col-start-4 mx-auto invisible">
+          <Image src="/lotus.svg" width={64} height={64} alt="lotus" />
+        </div>
+        {/* Right side (invisible) */}
+        <div className="col-start-5 col-span-2 mx-auto gap-16 flex invisible">
+          {navLinks.filter(l => l.position === 'right').map(l => (
+            <NavLink key={l.href} href={l.href}>{l.name}</NavLink>
+          ))}
+        </div>
+        {/* X – visible, same column as burger */}
+        <div className="col-start-7 col-span-1 flex justify-center items-center">
+          <X color="var(--secondary)" onClick={toggle} className="cursor-pointer" />
+        </div>
+      </div>
 
-        {/* Add other navigation links */}
+      {/* Menu links – centered below */}
+      <div className="flex-1 flex flex-col justify-center items-center space-y-8">
+        {navLinks.map(l => (
+          <NavLink key={l.href} href={l.href}>{l.name}</NavLink>
+        ))}
       </div>
     </div>
   );
 }
 
-
-
 export default function Nav() {
-
-  const [isMenuOpen, SetMenuOpen] = useState(false);
-  const MenuToggle = () => {
-    SetMenuOpen(!isMenuOpen);
-  }
+  const [isMenuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => setMenuOpen(!isMenuOpen);
 
   return (
     <nav className="z-10 grid grid-cols-7 w-screen gap-8 items-center justify-center text-center fixed top-0 bg-linear-to-b from-(--background)/80 to-0">
-      {/* left side */}
-      <div className="col-start-2 col-span-2 mx-auto gap-16 hidden md:relative md:flex">
-        <NavButton text="Home" href="/" />
-        <NavButton text="About" href="/about" />
+      {/* Left links (desktop only) */}
+      <div className="col-start-2 col-span-2 mx-auto gap-16 hidden md:flex">
+        {navLinks.filter(l => l.position === 'left').map(l => (
+          <NavLink key={l.href} href={l.href}>{l.name}</NavLink>
+        ))}
       </div>
 
-      {/* Lotus */}
-      <Link className="col-start-4 mx-auto col-300" href="/">
-        <Image
-          className="dark:invert"
-          src="/lotus.svg"
-          width={64}
-          height={64}
-          alt="lotus"
-        />
+      {/* Lotus (always visible) */}
+      <Link className="col-start-4 mx-auto" href="/">
+        <Image className="dark:invert" src="/lotus.svg" width={64} height={64} alt="lotus" />
       </Link>
 
-      {/* right side */}
-      <div className="col-start-5 col-span-2 mx-auto gap-16 hidden md:relative md:flex">
-      <NavButton text="Programming" href="/programming" />
-      <NavButton text="Motion Graphics" href="/motion_graphics" />
-
+      {/* Right links (desktop only) */}
+      <div className="col-start-5 col-span-2 mx-auto gap-16 hidden md:flex">
+        {navLinks.filter(l => l.position === 'right').map(l => (
+          <NavLink key={l.href} href={l.href}>{l.name}</NavLink>
+        ))}
       </div>
-      
 
-      {/* mobile options */}
-
-      {/* burger menu */}
-      <div className="grid col-start-7 h-full w-full place-items-center mx-auto gap-16 md:hidden" onClick={async () => {
-          console.log("hi");
-        }}>
-        <Menu color="var(--secondary)" onClick={MenuToggle} className={`w-full transition-transform duration-300 transform ${isMenuOpen ? 'translate-x-full' : 'translate-x-0'}`} />
-        <MobileMenu is_open={isMenuOpen} toggle={MenuToggle}/>
-
+      {/* Burger (mobile only) */}
+      <div className="grid col-start-7 h-full w-full place-items-center mx-auto md:hidden">
+        <Menu color="var(--secondary)" onClick={toggleMenu} className="w-full" />
+        <MobileMenu isOpen={isMenuOpen} toggle={toggleMenu} />
       </div>
-      {/* mobile nav div */}
-
-
     </nav>
-  )
+  );
 }

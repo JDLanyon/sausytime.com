@@ -5,33 +5,34 @@ import { useEffect, useRef, useState } from 'react';
 export type GlitchPhase = 'idle' | 'easeIn' | 'active' | 'easeOut';
 
 interface UseGlitchStateProps {
+  duration?: number;            // total glitch duration (ms)
   delay?: number;
   variance?: number;
   glitchCountForFlash?: number;
   glitchIntensity?: number;
   enabled?: boolean;
+  delayKey?: string;
 }
 
-const GLITCH_DURATION = 80;
 const FLASH_DURATION = 20;
 const FLASH_GAP = 10;
 const NOISE_FRAMES = 3;
-const DISPLACEMENT_INTENSITY = 25;
+const DISPLACEMENT_INTENSITY = 60;
 
 export function useGlitchState({
+  duration = 80,                 // default 80ms if not provided
   delay = 6000,
   variance = 500,
   glitchCountForFlash = 3,
   glitchIntensity = 1,
   enabled = true,
-  delayKey = '',   // 🆕 any value – when changed, resets the schedule
-}: UseGlitchStateProps & { enabled?: boolean; delayKey?: string }) {
+  delayKey = '',
+}: UseGlitchStateProps) {
   const [phase, setPhase] = useState<GlitchPhase>('idle');
   const [isInverted, setIsInverted] = useState(false);
   const [glitchCount, setGlitchCount] = useState(0);
   const [displacement, setDisplacement] = useState(0);
 
-  // 💥 Capture intensity once per glitch, keep it constant
   const [currentIntensity, setCurrentIntensity] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -52,29 +53,34 @@ export function useGlitchState({
 
   const triggerGlitch = () => {
     clearTimers();
-    setDisplacement(Math.floor(Math.random() * NOISE_FRAMES) * DISPLACEMENT_INTENSITY);
+    const base = (Math.floor(Math.random() * NOISE_FRAMES) + 1) * DISPLACEMENT_INTENSITY;
+    const jitter = Math.floor(Math.random() * 10);
+    setDisplacement(base + jitter);
     setPhase('easeIn');
-    setCurrentIntensity(glitchIntensity); // easeIn intensity
+    setCurrentIntensity(glitchIntensity);
 
+    // easeIn duration = 20% of total duration
     timerRef.current = setTimeout(() => {
       setPhase('active');
-      setCurrentIntensity(1 * glitchIntensity); // active intensity
+      setCurrentIntensity(1 * glitchIntensity);
       setGlitchCount((prev) => {
         const newCount = prev + 1;
         if (newCount % glitchCountForFlash === 0) triggerDoubleFlash();
         return newCount;
       });
 
+      // active duration = 60% of total duration
       timerRef.current = setTimeout(() => {
         setPhase('easeOut');
-        setCurrentIntensity(0.3 * glitchIntensity); // easeOut intensity
+        setCurrentIntensity(0.3 * glitchIntensity);
 
+        // easeOut duration = 20% of total duration
         timerRef.current = setTimeout(() => {
           setPhase('idle');
           setCurrentIntensity(0);
-        }, GLITCH_DURATION * 0.2);
-      }, GLITCH_DURATION * 0.6);
-    }, GLITCH_DURATION * 0.2);
+        }, duration * 0.2);
+      }, duration * 0.6);
+    }, duration * 0.2);
   };
 
   const scheduleNext = () => {
@@ -94,13 +100,13 @@ export function useGlitchState({
     }
     return clearTimers;
   }, [enabled, delay, variance, glitchCountForFlash, delayKey]);
-  
+
   return {
     phase,
     intensity: currentIntensity,
     isInverted,
     displacement,
-    glitchDuration: GLITCH_DURATION,
+    glitchDuration: duration,
     triggerGlitch,
   };
 }

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from 'next-themes';
 
 import "./globals.css";
-
+import '@/app/components/glitch/glitch.css';
 
 const overpass = Overpass({
   variable: "--font-overpass",
@@ -38,7 +38,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${overpass.variable} ${overpass_mono.variable} ${doto.variable}`} suppressHydrationWarning>
-      <body className="min-h-[100vh]">
+      <body className="min-h-screen">
         <ThemeProvider defaultTheme="dark" enableSystem={false}>
         {modal}
         {children}

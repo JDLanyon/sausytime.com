@@ -28,22 +28,159 @@ body {
 h1 {
   padding-top: 16px;
   font-family: var(--font-overpass);
-  font-size: 4em;
+  font-size: 80px;
 }
 
 h2 {
   font-family: var(--font-overpass-mono);
-  font-size: 2em;
+  font-size: 1.5em;
 }
 
-a, p {
-  font-size: 1em;
+h3 {
+  font-size: 1.em;
 }
 
 a {
   font-weight: bold;
 }
 
-p {
-  padding-bottom: 4px;
+
+/* effect stacks */
+/* had to hard define this bish */
+@keyframes opacity {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* typewriter */
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* glitch */
+
+[data-glitch="true"] {
+  animation: 
+    shake 0.6s steps(2, end),
+    displacement 0.06s steps(3, end),
+    rgb-split 0.06s steps(2, end),
+    scanline 0.06s linear;
+}
+
+[data-flash="true"] {
+  animation: invert-flash 0.04s steps(2, end);
+}
+
+/* effect 1 - shake displacement */
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, 1px); }
+  20% { transform: translate(1px, -2px); }
+  30% { transform: translate(-1px, 2px); }
+  40% { transform: translate(2px, -1px); }
+  50% { transform: translate(-2px, 1px); }
+  60% { transform: translate(1px, -2px); }
+  70% { transform: translate(-1px, 2px); }
+  80% { transform: translate(2px, -1px); }
+  90% { transform: translate(-1px, 1px); }
+}
+
+/* effect 2: vertical displacement */
+@keyframes displacement {
+  0%, 100% { 
+    clip-path: inset(0 0 0 0); 
+  }
+  33% { 
+    clip-path: inset(10% 0 20% 0); 
+  }
+  66% { 
+    clip-path: inset(20% 0 10% 0); 
+  }
+}
+
+/* effect 3 - rgb chroma split */
+@keyframes rgb-split {
+  0%, 100% { 
+    --r-offset: 0px;
+    --g-offset: 0px;
+    --b-offset: 0px;
+  }
+  50% { 
+    --r-offset: 1px;
+    --g-offset: -1px;
+    --b-offset: 0.5px;
+  }
+}
+
+[data-glitch="true"]::before,
+[data-glitch="true"]::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  mix-blend-mode: screen;
+}
+
+[data-glitch="true"]::before {
+  color: #ff0000;
+  transform: translate(var(--r-offset, 0), 0);
+  animation: chroma-red 0.06s steps(2, end);
+}
+
+[data-glitch="true"]::after {
+  color: #00ffff;
+  transform: translate(var(--g-offset, 0), 0);
+  animation: chroma-cyan 0.06s steps(2, end);
+}
+
+/* effect 4 - scanline */
+@keyframes scanline {
+  0% {
+    background: linear-gradient(
+      to bottom,
+      transparent 50%,
+      rgba(0, 255, 0, 0.05) 50%
+    );
+    background-size: 100% 3px;
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 100%;
+  }
+}
+
+/* effect 5 - double invert flash */
+@keyframes invert-flash {
+  0%, 60%, 100% { 
+    filter: invert(0); 
+  }
+  20% { 
+    filter: invert(1); 
+  }
+  40% { 
+    filter: invert(1); 
+  }
+}
+
+/* additional chroma effects */
+@keyframes chroma-red {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(2px, -1px); }
+}
+
+@keyframes chroma-cyan {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(-2px, 1px); }
+}
+
+/* for img and svgs - ensure effects work */
+[data-glitch="true"] img,
+[data-glitch="true"] svg {
+  display: block;
+  filter: inherit;
 }

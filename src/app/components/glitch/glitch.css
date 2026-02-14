@@ -1,0 +1,25 @@
+:root {
+  --glitch-duration: 80ms;
+  --glitch-chroma-base: 4px;
+  --glitch-blur-base: 0.5px;
+  --glitch-noise-opacity: 0.2;
+  --glitch-chroma-opacity: 0.6;
+}
+
+@keyframes glitch-chroma {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  50% { opacity: calc(var(--chroma-intensity, 0) * var(--glitch-chroma-opacity)); }
+}
+
+@keyframes glitch-noise {
+  0%, 100% { opacity: 0; }
+  20%, 80% { opacity: calc(var(--noise-intensity, 0) * var(--glitch-noise-opacity)); }
+}
+
+.animate-glitch-chroma {
+  animation: glitch-chroma var(--glitch-duration) cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.animate-glitch-noise {
+  animation: glitch-noise var(--glitch-duration) ease-in-out;
+}

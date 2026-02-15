@@ -1,15 +1,15 @@
 'use client';
 
-import { ReactNode, useMemo } from 'react';
+import { ReactNode, useMemo, useEffect } from 'react';
 
-
+// Old: larger offsets for stronger effect
 const CHROMA_COLORS = [
-  { name: 'red', value: '#ff0000', x: 8, y: 0, blend: 'screen' },
-  { name: 'green', value: '#00ff00', x: -8, y: 8, blend: 'screen' },
-  { name: 'blue', value: '#0000ff', x: 0, y: -8, blend: 'screen' },
-  { name: 'cyan', value: '#00ffff', x: 8, y: -8, blend: 'difference' },
-  { name: 'magenta', value: '#ff00ff', x: -8, y: 0, blend: 'difference' },
-  { name: 'yellow', value: '#ffff00', x: 0, y: 8, blend: 'difference' },
+  { name: 'red', value: '#ff0000', x: 2, y: 0, blend: 'screen' },
+  { name: 'green', value: '#00ff00', x: -2, y: 2, blend: 'screen' },
+  { name: 'blue', value: '#0000ff', x: 0, y: -2, blend: 'screen' },
+  { name: 'cyan', value: '#00ffff', x: 2, y: -2, blend: 'difference' },
+  { name: 'magenta', value: '#ff00ff', x: -2, y: 0, blend: 'difference' },
+  { name: 'yellow', value: '#ffff00', x: 0, y: 2, blend: 'difference' },
 ] as const;
 
 interface ChromaticAberrationEffectProps {
@@ -17,6 +17,7 @@ interface ChromaticAberrationEffectProps {
   displacement: number;
   duration: number;
   children: ReactNode;
+  disableDisplacement?: boolean;
 }
 
 export function ChromaticAberrationEffect({
@@ -24,50 +25,81 @@ export function ChromaticAberrationEffect({
   displacement,
   duration,
   children,
+  disableDisplacement = false,
 }: ChromaticAberrationEffectProps) {
-  if (intensity === 0) return null;
+  // ✅ Hooks at the top, before any conditional return
+  useEffect(() => {
+    if (intensity > 0) {
+      console.log('ChromaticAberrationEffect rendering with intensity:', intensity);
+    }
+  }, [intensity]);
 
-  // Generate per‑layer random offsets so each color jitters independently
-  const layerRandomness = useMemo(() => 
-    CHROMA_COLORS.map(() => ({
-      xJitter: (Math.random() - 0.5) * 4,   // -2..2 px
-      yJitter: (Math.random() - 0.5) * 4,
-      glowJitter: Math.random() * 3,         // 0..3 extra px for glow
-    })), []
+  // ✅ Randomness recreates when intensity changes (new glitch)
+  const layerRandomness = useMemo(
+    () =>
+      CHROMA_COLORS.map(() => ({
+        xJitter: (Math.random() - 0.5) * 4,   // -2..2 px
+        yJitter: (Math.random() - 0.5) * 4,
+        glowJitter: Math.random() * 3,         // 0..3 px extra glow
+      })),
+    [intensity]
   );
+
+  if (intensity === 0) return null;
 
   return (
     <span>
       {CHROMA_COLORS.map((color, i) => {
         const rand = layerRandomness[i];
-        // Combine base displacement with per‑layer randomness
-        const clipX = (displacement * (i % 2) + rand.xJitter * 5) % 30;
-        const clipY = (displacement * (i % 3) + rand.yJitter * 5) % 30;
 
-        // Glow size: base 6px * intensity + random flicker
+        // ----- Displacement offsets (from new version) -----
+        const displaceX =
+          !disableDisplacement && displacement > 0
+            ? (Math.random() * displacement * 0.8) * (i % 2 ? 1 : -1)
+            : 0;
+        const displaceY =
+          !disableDisplacement && displacement > 0
+            ? (Math.random() * displacement * 0.5) * (i % 3 ? 1 : -1)
+            : 0;
+
+        // ----- Clip path tearing (from old version) -----
+        const clipX = !disableDisplacement
+          ? (displacement * (i % 2) + rand.xJitter * 5) % 30
+          : 0;
+        const clipY = !disableDisplacement
+          ? (displacement * (i % 3) + rand.yJitter * 5) % 30
+          : 0;
+
+        // ----- Glow size (old version) -----
         const glowSize = 6 * intensity + rand.glowJitter;
+
+        // ----- Final translation (combine base color offset + jitter + displacement) -----
+        const translateX =
+          (color.x * intensity + rand.xJitter + displaceX) * (i % 2 ? -1 : 1);
+        const translateY =
+          (color.y * intensity + rand.yJitter + displaceY) * (i % 3 ? -1 : 1);
 
         return (
           <span
             key={color.name}
             className={`absolute inset-0 z-2 ${
               i >= 3 ? 'mix-blend-difference' : 'mix-blend-screen'
-            } animate-glitch-chroma`}
+            }`}
             style={{
               color: color.value,
-              '--chroma-intensity': Math.min(1, intensity * 1.5), // force visibility
-              '--glitch-duration': `${duration}ms`,
-              transform: `translate(${
-                (color.x * intensity + rand.xJitter) * (i % 2 ? -1 : 1)
-              }px, ${
-                (color.y * intensity + rand.yJitter) * (i % 3 ? -1 : 1)
-              }px)`,
+              opacity: intensity,
+              transform: `translate(${translateX}px, ${translateY}px)`,
               filter: `
                 blur(0.5px)
                 drop-shadow(0 0 ${glowSize}px ${color.value})
               `,
-              clipPath: `inset(${clipX}% ${clipY}% 0 0)`,
-            } as React.CSSProperties}
+              clipPath:
+                !disableDisplacement && displacement > 0
+                  ? `inset(${clipX}% ${clipY}% 0 0)`
+                  : undefined,
+              transition: `transform ${duration}ms cubic-bezier(0.4, 0, 0.2, 1)`,
+              willChange: 'transform',
+            }}
           >
             {children}
           </span>

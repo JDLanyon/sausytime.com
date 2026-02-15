@@ -80,7 +80,7 @@ export default function TypeWriter({
   const isIdle = !isDeleting && currentText === currentFullText;
 
   return (
-    <div className={`inline-flex items-center whitespace-nowrap ${className}`}>
+    <span className={`inline-flex items-center ${className}`}>
       <span>{currentText}</span>
       <span
         className={`
@@ -92,6 +92,6 @@ export default function TypeWriter({
       {remainingText && (
         <span className="opacity-40">{remainingText}</span>
       )}
-    </div>
+    </span>
   );
 }

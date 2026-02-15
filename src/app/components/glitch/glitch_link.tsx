@@ -1,14 +1,18 @@
 'use client';
 
+
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Glitch, GlitchHandle } from './glitch';
+
 
 interface GlitchLinkProps {
   href: string;
   children: string;
   className?: string;
   underlineDuration?: number;
+  glitchIntensity?: number;
+  cooldown?: number; // minimum ms between glitches
 }
 
 export function GlitchLink({
@@ -16,17 +20,18 @@ export function GlitchLink({
   children,
   className = '',
   underlineDuration = 200,
+  glitchIntensity = 1.5,
+  cooldown = 500,
 }: GlitchLinkProps) {
   const glitchRef = useRef<GlitchHandle>(null);
-  const [isHovered, setIsHovered] = useState(false);
+  const lastGlitchTime = useRef(0);
 
   const handleMouseEnter = () => {
-    setIsHovered(true);
-    glitchRef.current?.glitch();
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
+    const now = Date.now();
+    if (now - lastGlitchTime.current >= cooldown) {
+      lastGlitchTime.current = now;
+      glitchRef.current?.glitch();
+    }
   };
 
   return (
@@ -34,12 +39,12 @@ export function GlitchLink({
       href={href}
       className={`relative inline-block no-underline group ${className}`}
       onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <Glitch
         ref={glitchRef}
-        autoGlitch={false}          // ← only on hover
         names={[children]}
+        duration={300}
+        glitchIntensity={glitchIntensity}
         className="relative inline-block"
       />
 

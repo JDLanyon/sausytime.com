@@ -1,6 +1,5 @@
 'use client';
 
-
 import React, {
   ReactNode,
   useEffect,
@@ -17,9 +16,9 @@ import { MotionBlurEffect } from './effects/motion_blur';
 import { NoiseEffect } from './effects/noise';
 import { ScanlineEffect } from './effects/scanline';
 import { FlickerEffect } from './effects/flicker';
+import { PositionDisplacementEffect } from './effects/position_displacement'; // new import
 
 import './glitch.css';
-
 
 export interface GlitchHandle {
   glitch: () => void;
@@ -32,28 +31,24 @@ interface GlitchProps {
   variance?: number;
   glitchCountForFlash?: number;
   glitchIntensity?: number;
-  minEffects?: boolean;
   className?: string;
   children?: ReactNode;
   nameSwitchProbability?: number;
   preserveSpace?: boolean;
-  autoGlitch?: boolean;
   onGlitchComplete?: () => void;
 }
 
 export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
   names,
   duration = 200,
-  delay = 3000,
+  delay = 8000,
   variance = 500,
   glitchCountForFlash = 5,
   glitchIntensity = 1,
-  minEffects = false,
   className = '',
   children,
   nameSwitchProbability = 0.1,
   preserveSpace = true,
-  autoGlitch = true,
   onGlitchComplete,
 }, ref) => {
   const isNameMode = !!names && names.length > 0;
@@ -95,7 +90,6 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
     variance,
     glitchCountForFlash,
     glitchIntensity,
-    enabled: autoGlitch,
   });
 
   useImperativeHandle(ref, () => ({
@@ -112,7 +106,7 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
   const flickerRef = useRef(false);
   useEffect(() => {
     if (phase === 'active') {
-      flickerRef.current = Math.random() <= 0.3; // 30% chance
+      flickerRef.current = Math.random() <= 0.3;
     }
   }, [phase]);
 
@@ -148,36 +142,47 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
 
   return (
     <span>
+      {/* Hidden measuring element */}
       <span ref={measureRef} aria-hidden="true" style={{ position: 'absolute', opacity: 0, pointerEvents: 'none' }}>
         {names?.[0]}
       </span>
 
-      <span
-        className={`relative ${className}`}
-        style={{
-          ...widthStyle,
-          filter: isInverted ? 'invert(1)' : 'none',
-          transition: isInverted ? 'filter 0.02s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
-          willChange: 'transform, filter, opacity',
-        }}
+      {/* Position displacement – makes the whole block jump */}
+      <PositionDisplacementEffect
+        intensity={intensity}
+        duration={glitchDuration}
+        phase={phase}
       >
-        <ShakeEffect intensity={intensity} duration={glitchDuration} phase={phase}>
-          <span className="relative z-10">{mainContent}</span>
-        </ShakeEffect>
-
-        <ChromaticAberrationEffect
-          intensity={intensity}
-          displacement={displacement}
-          duration={glitchDuration}
+        <span
+          className={`relative ${className}`}
+          style={{
+            ...widthStyle,
+            filter: isInverted ? 'invert(1)' : 'none',
+            transition: isInverted ? 'filter 0.02s cubic-bezier(0.4, 0, 0.2, 1)' : 'none',
+            willChange: 'transform, filter, opacity',
+          }}
         >
-          {chromaContent}
-        </ChromaticAberrationEffect>
+          {/* Shake effect – micro‑movements inside */}
+          <ShakeEffect intensity={intensity} duration={glitchDuration} phase={phase}>
+            <span className="relative z-10">{mainContent}</span>
+          </ShakeEffect>
 
-        <MotionBlurEffect intensity={intensity * 1.5} />
-        {/* <NoiseEffect intensity={intensity * 1.5} duration={glitchDuration} /> */}
-        {!minEffects && <ScanlineEffect intensity={intensity * 1.5} duration={glitchDuration} />}
-        {!minEffects && <FlickerEffect phase={phase} shouldFlicker={flickerRef.current} />}
-      </span>
+          {/* Chromatic aberration – boosted for max glitchiness */}
+          <ChromaticAberrationEffect
+            intensity={intensity}
+            displacement={displacement}
+            duration={glitchDuration}
+          >
+            {chromaContent}
+          </ChromaticAberrationEffect>
+
+          {/* Additional texture effects */}
+          <MotionBlurEffect intensity={intensity * 2} />
+          <NoiseEffect intensity={intensity} duration={glitchDuration} />
+          <ScanlineEffect intensity={intensity} duration={glitchDuration} />
+          <FlickerEffect phase={phase} shouldFlicker={flickerRef.current} />
+        </span>
+      </PositionDisplacementEffect>
     </span>
   );
 });

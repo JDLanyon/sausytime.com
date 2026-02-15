@@ -1,11 +1,13 @@
 'use client';
 
+
 import { useEffect, useRef, useState } from 'react';
+
 
 export type GlitchPhase = 'idle' | 'easeIn' | 'active' | 'easeOut';
 
 interface UseGlitchStateProps {
-  duration?: number;            // total glitch duration (ms)
+  duration?: number;
   delay?: number;
   variance?: number;
   glitchCountForFlash?: number;
@@ -14,14 +16,14 @@ interface UseGlitchStateProps {
   delayKey?: string;
 }
 
-const FLASH_DURATION = 20;
-const FLASH_GAP = 10;
-const NOISE_FRAMES = 3;
-const DISPLACEMENT_INTENSITY = 60;
+const FLASH_DURATION = 24;
+const FLASH_GAP = 12;
+const NOISE_FRAMES = 4;
+const DISPLACEMENT_INTENSITY = 8;
 
 export function useGlitchState({
-  duration = 80,                 // default 80ms if not provided
-  delay = 6000,
+  duration = 200,
+  delay = 8000,
   variance = 500,
   glitchCountForFlash = 3,
   glitchIntensity = 1,
@@ -32,7 +34,6 @@ export function useGlitchState({
   const [isInverted, setIsInverted] = useState(false);
   const [glitchCount, setGlitchCount] = useState(0);
   const [displacement, setDisplacement] = useState(0);
-
   const [currentIntensity, setCurrentIntensity] = useState(0);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -52,6 +53,9 @@ export function useGlitchState({
   };
 
   const triggerGlitch = () => {
+    // 🛑 Don't start a new glitch if one is already running
+    if (phase !== 'idle') return;
+
     clearTimers();
     const base = (Math.floor(Math.random() * NOISE_FRAMES) + 1) * DISPLACEMENT_INTENSITY;
     const jitter = Math.floor(Math.random() * 10);
@@ -59,7 +63,6 @@ export function useGlitchState({
     setPhase('easeIn');
     setCurrentIntensity(glitchIntensity);
 
-    // easeIn duration = 20% of total duration
     timerRef.current = setTimeout(() => {
       setPhase('active');
       setCurrentIntensity(1 * glitchIntensity);
@@ -69,12 +72,10 @@ export function useGlitchState({
         return newCount;
       });
 
-      // active duration = 60% of total duration
       timerRef.current = setTimeout(() => {
         setPhase('easeOut');
         setCurrentIntensity(0.3 * glitchIntensity);
 
-        // easeOut duration = 20% of total duration
         timerRef.current = setTimeout(() => {
           setPhase('idle');
           setCurrentIntensity(0);

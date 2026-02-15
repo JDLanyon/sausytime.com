@@ -1,6 +1,5 @@
 'use client'
 
-
 import { useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
@@ -57,13 +56,11 @@ function ThemeSwitch() {
   );
 }
 
-
 export default function Footer({ landingPage = false }: { landingPage?: boolean }) {
   return (
     <footer
-      className={`
-        flex flex-row flex-wrap items-center justify-center gap-2 py-4 whitespace-nowrap
-        ${landingPage ? 'md:absolute md:bottom-8 md:left-0 md:right-0' : ''}
+      className={`z-50 flex flex-wrap items-center justify-center mx-auto my-8
+        ${landingPage ? 'absolute bottom-8 left-0 right-0' : 'relative'}
       `}
     >
       {socialLinks.map(({ href, icon: Icon, label }) => (

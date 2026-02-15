@@ -7,19 +7,20 @@ interface NoiseEffectProps {
 
 export function NoiseEffect({ intensity, duration }: NoiseEffectProps) {
   if (intensity === 0) return null;
+  
   return (
     <span
-      className="absolute inset-0 z-6 pointer-events-none animate-glitch-noise"
+      className="absolute inset-0 z-5 pointer-events-none mix-blend-overlay"
       style={{
-        '--noise-intensity': intensity,
-        '--glitch-duration': `${duration}ms`,
+        opacity: intensity * 0.15, // very subtle
         backgroundImage: `
-          linear-gradient(45deg, transparent 25%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.1) 50%, transparent 50%, transparent 75%, rgba(255,255,255,0.1) 75%),
-          linear-gradient(-45deg, transparent 25%, rgba(0,0,0,0.1) 25%, rgba(0,0,0,0.1) 50%, transparent 50%, transparent 75%, rgba(0,0,0,0.1) 75%)
+          radial-gradient(circle at 30% 40%, rgba(255,255,255,0.1) 0%, transparent 40%),
+          radial-gradient(circle at 70% 60%, rgba(0,0,0,0.1) 0%, transparent 40%),
+          repeating-linear-gradient(45deg, transparent, transparent 4px, rgba(255,255,255,0.02) 4px, rgba(255,255,255,0.02) 8px)
         `,
-        backgroundSize: '8px 8px',
+        backgroundSize: '100% 100%, 100% 100%, 8px 8px',
         mixBlendMode: 'overlay',
-      } as React.CSSProperties}
+      }}
     />
   );
 }

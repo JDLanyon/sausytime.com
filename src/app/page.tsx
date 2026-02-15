@@ -53,12 +53,12 @@ export default function Home() {
       <section className='relative flex flex-col h-full items-center text-center snap-start'>
         {/* hero */}
         <h3 className='py-16'>Thank you for taking the time to visit my <strong>designer</strong> portfolio!</h3>
-        <h3>My name's{' '}
+        <h3 className='pb-2'>My name's{' '}
         <Glitch names={names} />
         {' '}and together we'll be able to:</h3>
         <TypeWriter headings={services} />
         {/* lotus :> */}
-        <Glitch duration={3000} delay={15000} minEffects>
+        <Glitch duration={3000} delay={16000}>
           <Image
             className='invert mx-auto light:invert-0'
             src='/lotus.svg'

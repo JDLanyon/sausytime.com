@@ -54,7 +54,7 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
   const isNameMode = !!names && names.length > 0;
   const nameCycler = isNameMode ? useNameCycler(names!, nameSwitchProbability) : null;
 
-  // Measure widest name
+  // measure widest name
   const measureRef = useRef<HTMLSpanElement>(null);
   const [maxNameWidth, setMaxNameWidth] = useState<number | null>(null);
 
@@ -102,11 +102,11 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
     }
   }, [phase, onGlitchComplete]);
 
-  // 🎲 Decide once per glitch whether to flicker (30% chance)
+  // decide once per glitch whether to flicker
   const flickerRef = useRef(false);
   useEffect(() => {
     if (phase === 'active') {
-      flickerRef.current = Math.random() <= 0.3;
+      flickerRef.current = Math.random() <= 0.1;
     }
   }, [phase]);
 

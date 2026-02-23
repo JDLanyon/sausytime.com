@@ -12,7 +12,7 @@ interface GlitchLinkProps {
   className?: string;
   underlineDuration?: number;
   glitchIntensity?: number;
-  cooldown?: number; // minimum ms between glitches
+  cooldown?: number;
 }
 
 export function GlitchLink({

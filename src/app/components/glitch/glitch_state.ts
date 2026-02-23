@@ -53,7 +53,7 @@ export function useGlitchState({
   };
 
   const triggerGlitch = () => {
-    // 🛑 Don't start a new glitch if one is already running
+    // don't start a new glitch if one is already running
     if (phase !== 'idle') return;
 
     clearTimers();

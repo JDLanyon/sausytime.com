@@ -10,7 +10,7 @@ const CHROMA_COLORS = [
   { name: 'cyan', value: '#00ffff', x: 2, y: -2, blend: 'difference' },
   { name: 'magenta', value: '#ff00ff', x: -2, y: 0, blend: 'difference' },
   { name: 'yellow', value: '#ffff00', x: 0, y: 2, blend: 'difference' },
-] as const;
+];
 
 interface ChromaticAberrationEffectProps {
   intensity: number;
@@ -27,14 +27,14 @@ export function ChromaticAberrationEffect({
   children,
   disableDisplacement = false,
 }: ChromaticAberrationEffectProps) {
-  // ✅ Hooks at the top, before any conditional return
+  // hooks
   useEffect(() => {
     if (intensity > 0) {
       console.log('ChromaticAberrationEffect rendering with intensity:', intensity);
     }
   }, [intensity]);
 
-  // ✅ Randomness recreates when intensity changes (new glitch)
+  // randomness recreates when intensity changes (new glitch)
   const layerRandomness = useMemo(
     () =>
       CHROMA_COLORS.map(() => ({
@@ -52,7 +52,7 @@ export function ChromaticAberrationEffect({
       {CHROMA_COLORS.map((color, i) => {
         const rand = layerRandomness[i];
 
-        // ----- Displacement offsets (from new version) -----
+        // displacement offsets
         const displaceX =
           !disableDisplacement && displacement > 0
             ? (Math.random() * displacement * 0.8) * (i % 2 ? 1 : -1)
@@ -62,7 +62,7 @@ export function ChromaticAberrationEffect({
             ? (Math.random() * displacement * 0.5) * (i % 3 ? 1 : -1)
             : 0;
 
-        // ----- Clip path tearing (from old version) -----
+        // clip path tearing
         const clipX = !disableDisplacement
           ? (displacement * (i % 2) + rand.xJitter * 5) % 30
           : 0;
@@ -70,10 +70,10 @@ export function ChromaticAberrationEffect({
           ? (displacement * (i % 3) + rand.yJitter * 5) % 30
           : 0;
 
-        // ----- Glow size (old version) -----
+        // glow size
         const glowSize = 6 * intensity + rand.glowJitter;
 
-        // ----- Final translation (combine base color offset + jitter + displacement) -----
+        // final translation (base color offset + jitter + displacement)
         const translateX =
           (color.x * intensity + rand.xJitter + displaceX) * (i % 2 ? -1 : 1);
         const translateY =

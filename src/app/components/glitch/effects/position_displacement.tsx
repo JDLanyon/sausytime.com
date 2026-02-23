@@ -36,7 +36,7 @@ export function PositionDisplacementEffect({
       const elapsed = time - startTimeRef.current;
       const progress = Math.min(elapsed / duration, 1);
 
-      // Random position shifts that get more intense during active phase
+      // random position shifts that get more intense during active phase
       const phaseMultiplier = phase === 'active' ? 1 : 0.4;
       const maxShift = intensity * phaseMultiplier;
       

@@ -1,5 +1,6 @@
 'use client';
 
+
 import { useEffect, useRef } from 'react';
 import { GlitchPhase } from '../glitch_state';
 

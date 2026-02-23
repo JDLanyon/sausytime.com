@@ -1,5 +1,6 @@
 'use client';
 
+
 interface NoiseEffectProps {
   intensity: number;
   duration: number;

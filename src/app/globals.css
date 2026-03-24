@@ -27,12 +27,14 @@ body {
 
 h1 {
   font-family: var(--font-overpass);
-  font-size: 80px;
+  font-size: 3rem;
+  padding-top: 1rem;
 }
 
 h2 {
   font-family: var(--font-overpass-mono);
-  font-size: 1.5em;
+  font-size: 1.5rem;
+  padding-top: 0.5rem;
 }
 
 h3 {

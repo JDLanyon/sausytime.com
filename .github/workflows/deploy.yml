@@ -1,0 +1,60 @@
+name: Deploy Next.js Developer Portfolio
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build
+        run: npm run build
+      
+      - name: Prepare deployment directory
+        run: |
+          # Create or clean the application directory
+          sudo mkdir -p /var/www/sausytime.com
+          sudo rm -rf /var/www/sausytime.com/*
+      
+      - name: Copy application files
+        run: |
+          # Copy necessary files (exclude dev-only files)
+          sudo cp -r .next /var/www/sausytime.com/
+          sudo cp -r public /var/www/sausytime.com/
+          sudo cp package.json package-lock.json next.config.js /var/www/sausytime.com/ 2>/dev/null || true
+      
+      - name: Install production dependencies
+        run: |
+          cd /var/www/sausytime.com
+          npm ci --omit=dev --no-audit --no-fund
+      
+      - name: Set ownership
+        run: |
+          # Assuming your service runs as jdl
+          sudo chown -R jdl:jdl /var/www/sausytime.com
+          sudo chmod -R 755 /var/www/sausytime.com
+      
+      - name: Restart the systemd service
+        run: |
+          sudo systemctl restart sausytime.com
+          sleep 5
+          sudo systemctl status sausytime.com --no-pager
+      
+      - name: Verify deployment
+        run: |
+          curl --fail http://localhost:3000 || exit 1

@@ -6,31 +6,41 @@ import Nav from "@/app/components/nav";
 
 
 export default function About() {
+  const photos = ['selfie.jpg', 'road.jpeg', 'moon.jpg', 'seat.jpeg'];
   return (
     <section className="min-h-screen flex flex-col">
       <Nav />
-      <div id="content" className="px-8 py-12 lg:px-32 grow">
+      <div id="content" className="m-16 px-8 py-12 lg:px-32 grow">
 
-        <div className="grid grid-cols-1 md:grid-cols-6 items-start justify-items-center p-8 gap-8">
-          <Image
-              className="mx-auto w-full col-span-6 md:row-1 md:col-span-3 md:col-start-4 lg:col-span-2 lg:col-start-5"
-              src="/Me.jpg"
-              // layout="contain"
-              width={1000}
-              height={1000}
-              // sizes="100vw"
-              // style={{ width: '100%', height: 'auto' }} // optional
-              alt="Photo of me"
-            />
-            <div className="w-full col-span-6 float-left md:row-1 md:col-start-1 md:col-span-3 md:col-end-4 lg:col-span-4">
-              <h1>Hey o/</h1>
-              <p>I&apos;m Jackson Lanyon, an advocate of expression through multimedia, combining several skills to give immersive interaction.</p>
-              <p>This site is built with Next.js with responsive minimal design in mind. More details can be found <Link href={`/programming/portfolio`} passHref className="font-bold underline">here!</Link></p>
-              <br />
+        <div className="flex flex-row-reverse items-start justify-items-center">
+          <div id="photos" className="w-full flex-col flex-1 gap-8 space-y-4">
+            {photos.map((image) => (
+              <Image
+                key={image}
+                className="mx-auto w-full"
+                src={`/photos/${image}`}
+                // layout="contain"
+                width={1000}
+                height={1000}
+                // sizes="100vw"
+                // style={{ width: '100%', height: 'auto' }} // optional
+                alt={`Photo ${image}`}
+              />
+            ))}
+          </div>
 
-              <h1>Who I am</h1>
-              <h2>What's with the lotus?</h2>
-              <p>A lotus can grow in difficult conditions, it's a flower that blossoms after growing through mud and water and is something I heavily resonate with.</p>
+          <div className="w-full lg:flex-4 md:flex-2 float-left">
+              
+              <h1>What is this website</h1>
+              <p>Welcome to my designer portfolio, aiming to showcase my visual talent. I'm currently working on a developer portfolio while in my final year at QUT.</p>
+              <p>This is my first real production project outside of uni, designed with responsive and minimal design in mind, built with Next.js, deployed with cloudflare and self hosted!. More details can be found
+                {' '}<Link href={`/programming/portfolio`} passHref className="underline hover:underline-offset-4 text-(--secondary)">here</Link>!</p>
+              
+              <h1>Who am I?</h1>
+              <p>I'm Jackson Lanyon, a massive advocate for self expression combining several disciplines to create immersive visuals.</p>
+
+              <h2>Lotus imagery</h2>
+              <p>This flower is something I highly resonate with, blooming after growing through 2 metres of mud.</p>
               
               <h2>Education</h2>
               <p>Currently I&apos;m in my final year studying a <b>Bachelor of Interactive Environments at QUT</b>. Outside of study my focus is on motion graphics and recreational programming.</p>
@@ -47,23 +57,36 @@ export default function About() {
 
 
               <h1>What I do</h1>
-              <p>There&apos;s something truly nice about viewing programming as an artform and I hope to eventually represent that through various means.</p>
-              <p>This includes anything from <b>Motion Graphics</b>, <b>Game development</b>, <b>Web Development</b>, <b>Graphic design</b> and hopefully more in the future!</p>
+              <p>There&apos;s something truly nice about viewing programming as an artform and I hope to showcase that in time with high effort video editing.</p>
+              <p>Anything from <b>Motion Graphics</b>, <b>Game development</b>, <b>Web Development</b> and <b>Graphic design</b> are where my skills lay</p>
               <br/>
+              <p>Currently I'm working on a developer portfolio, completing uni and another real world project 👀</p>
               <h2>Resume</h2>
-              <p>My resume can curently be found on <Link
-                className="hover:underline hover:underline-offset-4 text-(--secondary)"
+              <p>Please visit my <Link
+                className="underline hover:underline-offset-4 text-(--secondary)"
                 href="https://www.linkedin.com/in/jdlanyon/"
                 target="_blank"
                 rel="noopener noreferrer"
                 >LinkedIn</Link>.
               </p>
               <br/>
-              <p>This site is continuously being developed and as a result there&apos;s still things missing, if there&apos;s any feedback or suggestions your have lease don&apos;t hesitate to contact me at <a href="mailto:jlany9@hotmail.com?subject=Portfolio%20feedback&body=Hi Jackson,<br/><br/>I%20was%20looking%20at%20your%20site," className="font-bold underline">email</a>:&gt;</p>
-            </div>
+              <br/>
+              <br/>
+              <p>This site is continuously being developed and as a result there&apos;s <Link
+                className="underline hover:underline-offset-4 text-(--secondary)"
+                href="https://github.com/JDLanyon/sausytime.com/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                >only a few things missing</Link>, if there&apos;s any feedback or suggestions your have lease don&apos;t hesitate to contact me at <Link
+                className="underline hover:underline-offset-4 text-(--secondary)"
+                href="mailto:jssdl@protonmail.com?subject=Portfolio%20feedback&body=Hi Jackson,<br/><br/>I%20was%20looking%20at%20your%20site"
+                target="_blank"
+                rel="noopener noreferrer"
+                >jssdl@protonmail.com</Link></p>
           </div>
-
         </div>
+
+      </div>
       <Footer />
     </section>
   );

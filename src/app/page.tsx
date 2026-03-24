@@ -14,11 +14,11 @@ import { GlitchLink } from '@/app/components/glitch/glitch_link';
 
 export default function Home() {
   const services = [
-    'build a moving website',
-    'explore your brand\'s visual identity',
-    'create stream interactions with the use APIs',
+    'build a vibey as $#!& website',
+    'explore your visual identity',
+    'create unqiue stream interactions with APIs',
     'build custom bots for further community engagement',
-    'establish a style and theme that represents your work',
+    'define a versatile style guide for consistencies and varieties',
     'design spicy stream stingers and transitions',
     'ideate and iteratively design social branding assets',
     'communicate with transparency during development to deliver relatable clean visuals',
@@ -52,10 +52,10 @@ export default function Home() {
       {/* first section - landing page */}
       <section className='relative flex flex-col h-full items-center text-center snap-start'>
         {/* hero */}
-        <h3 className='py-16'>Thank you for taking the time to visit my <strong>designer</strong> portfolio!</h3>
-        <h3 className='pb-2'>My name's{' '}
-        <Glitch names={names} />
-        {' '}and together we'll be able to:</h3>
+        <h2 className='py-16'>Heyo! o/</h2>
+        <h3 className='pb-2'>Thank you for taking the time to visit my <strong>designer</strong> portfolio, I'm{' '}
+        <Glitch names={names} />{' '} and together we will;</h3>
+        <h3></h3>
         <TypeWriter headings={services} />
         {/* lotus :> */}
         <Glitch duration={3000} delay={16000}>
@@ -73,7 +73,7 @@ export default function Home() {
           <Button text='Motion Graphics' href='/motion_graphics'/>
         </div>
         {/* <p>My professional portfolio can be found at <GlitchLink href='https://jdlanyon.dev'>jdlanyon.dev</GlitchLink></p> */}
-        <p>Please feel free to <GlitchLink href='/contact'>reach out</GlitchLink> and <GlitchLink href='/about'>learn about my process!</GlitchLink> &lt;3</p>
+        <p>Please feel free to <GlitchLink href='/contact'>reach out</GlitchLink> and <GlitchLink href='/about'>learn about what I do!</GlitchLink> &lt;3</p>
         {/* <p className='z-1 text-[--var(secondary)]'>programming is an artform</p> */}
       <Footer landingPage={true} />
       </section>

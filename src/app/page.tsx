@@ -50,32 +50,34 @@ export default function Home() {
         </div>
       
       {/* first section - landing page */}
-      <section className='relative flex flex-col h-full items-center text-center snap-start'>
-        {/* hero */}
-        <h2 className='py-16'>Heyo! o/</h2>
-        <h3 className='pb-2'>Thank you for taking the time to visit my <strong>designer</strong> portfolio, I'm{' '}
-        <Glitch names={names} />{' '} and together we will;</h3>
-        <h3></h3>
-        <TypeWriter headings={services} />
-        {/* lotus :> */}
-        <Glitch duration={3000} delay={16000}>
-          <Image
-            className='invert mx-auto light:invert-0'
-            src='/lotus.svg'
-            width={256}
-            height={256}
-            alt='lotus'
-          />
-        </Glitch>
-        <div className='z-1 flex flex-row flex-wrap items-center justify-center gap-2 py-4 whitespace-nowrap'>
-          <Button text='About' href='/about'/>
-          <Button text='Programming' href='/programming'/>
-          <Button text='Motion Graphics' href='/motion_graphics'/>
+      <section className='flex h-screen snap-start'>
+        <div className='flex flex-col md:mt-20 mx-auto items-center text-center'>
+
+          {/* hero */}
+          <h2 className='py-8'>Heyo! o/</h2>
+          <h3 className='pb-2'>Thank you for taking the time to visit my <strong>designer</strong> portfolio, I'm{' '}
+          <Glitch names={names} />{' '} and together we will;</h3>
+          <h3></h3>
+          <TypeWriter headings={services} />
+          {/* lotus :> */}
+          <Glitch duration={3000} delay={16000}>
+            <Image
+              className='invert mx-auto light:invert-0'
+              src='/lotus.svg'
+              width={256}
+              height={256}
+              alt='lotus'
+            />
+          </Glitch>
+          <div className='z-1 flex flex-row flex-wrap items-center justify-center gap-2 py-4 whitespace-nowrap'>
+            <Button text='About' href='/about'/>
+            <Button text='Programming' href='/programming'/>
+            <Button text='Motion Graphics' href='/motion_graphics'/>
+          </div>
+          {/* <p>My professional portfolio can be found at <GlitchLink href='https://jdlanyon.dev'>jdlanyon.dev</GlitchLink></p> */}
+          <p>Please feel free to <GlitchLink href='/contact'>reach out</GlitchLink> and <GlitchLink href='/about'>learn about what I do!</GlitchLink> &lt;3</p>
+          {/* <p className='z-1 text-[--var(secondary)]'>programming is an artform</p> */}
         </div>
-        {/* <p>My professional portfolio can be found at <GlitchLink href='https://jdlanyon.dev'>jdlanyon.dev</GlitchLink></p> */}
-        <p>Please feel free to <GlitchLink href='/contact'>reach out</GlitchLink> and <GlitchLink href='/about'>learn about what I do!</GlitchLink> &lt;3</p>
-        {/* <p className='z-1 text-[--var(secondary)]'>programming is an artform</p> */}
-      <Footer landingPage={true} />
       </section>
 
       <section className='relative h-screen snap-start'>
@@ -83,6 +85,8 @@ export default function Home() {
           <p>as you may see there is still much to do here, stay tuned for updates! 😁</p>
         </div>
       </section>
+
+      <Footer landingPage={true} />
     </div>
   );
 }

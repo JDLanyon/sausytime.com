@@ -7,6 +7,14 @@ import Footer from "@/app/components/footer";
 import Nav from "@/app/components/nav";
 
 
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Programming - Sausytime Portfolio",
+  description: "Browse programming projects including game development and web development work by Jackson Lanyon.",
+};
+
 export default function Programming() {
   return (
     <section className="min-h-screen flex flex-col">

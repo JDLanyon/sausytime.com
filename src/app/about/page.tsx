@@ -5,6 +5,14 @@ import Footer from "@/app/components/footer";
 import Nav from "@/app/components/nav";
 
 
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About - Sausytime Portfolio",
+  description: "Learn about Jackson Lanyon, a designer and developer specializing in motion graphics, game development, and web development.",
+};
+
 export default function About() {
   const photos = ['selfie.jpg', 'road.jpeg', 'moon.jpg', 'seat.jpeg'];
   return (

@@ -3,8 +3,12 @@ import { MOTION_GRAPHICS } from "@/app/project_data"
 import Button from "@/app/components/button";
 import Footer from "@/app/components/footer";
 import Nav from "@/app/components/nav";
+import type { Metadata } from "next";
 
-
+export const metadata: Metadata = {
+  title: "Motion Graphics - Sausytime Portfolio",
+  description: "Explore motion graphics projects including snippets and full video projects by Sausytime.",
+};
 
 export default function MotionGraphics() {
   return (

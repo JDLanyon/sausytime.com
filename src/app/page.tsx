@@ -48,7 +48,7 @@ export default function Home() {
             fill
           />
         </div>
-      
+
       {/* first section - landing page */}
       <section className='flex h-screen snap-start'>
         <div className='flex flex-col md:mt-20 mx-auto items-center text-center'>
@@ -82,7 +82,7 @@ export default function Home() {
 
       <section className='relative h-screen snap-start'>
         <div className='flex flex-col items-center justify-center h-full p-8 gap-8 text-center relative z-10'>
-          <p>as you may see there is still much to do here, stay tuned for updates! 😁</p>
+          <p>updates are still coming, bare with me bros 🫠</p>
         </div>
       </section>
 

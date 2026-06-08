@@ -1,9 +1,13 @@
 import Image from "next/image";
 import Link from 'next/link'
-
 import Footer from "@/app/components/footer";
 import Nav from "@/app/components/nav";
+import type { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Contact - Sausytime Portfolio",
+  description: "Get in touch with Jackson Lanyon for design, development, and motion graphics collaborations.",
+};
 
 export default function About() {
   return (

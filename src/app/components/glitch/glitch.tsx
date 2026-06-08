@@ -1,12 +1,12 @@
 'use client';
 
 import React, {
-  ReactNode,
+  type ReactNode,
   useEffect,
   useRef,
   useState,
-  forwardRef,
   useImperativeHandle,
+  type Ref,
 } from 'react';
 import { useGlitchState } from './glitch_state';
 import { useNameCycler } from './name_state';
@@ -25,6 +25,7 @@ export interface GlitchHandle {
 }
 
 interface GlitchProps {
+  ref?: Ref<GlitchHandle>;
   names?: string[];
   duration?: number;
   delay?: number;
@@ -38,7 +39,8 @@ interface GlitchProps {
   onGlitchComplete?: () => void;
 }
 
-export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
+export const Glitch = function Glitch({
+  ref,
   names,
   duration = 200,
   delay = 8000,
@@ -50,7 +52,7 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
   nameSwitchProbability = 0.1,
   preserveSpace = true,
   onGlitchComplete,
-}, ref) => {
+}: GlitchProps) {
   const isNameMode = !!names && names.length > 0;
   const nameCycler = isNameMode ? useNameCycler(names!, nameSwitchProbability) : null;
 
@@ -185,6 +187,6 @@ export const Glitch = forwardRef<GlitchHandle, GlitchProps>(({
       </PositionDisplacementEffect>
     </span>
   );
-});
+};
 
 Glitch.displayName = 'Glitch';

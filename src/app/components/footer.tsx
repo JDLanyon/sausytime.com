@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react';
+import React from 'react';
 import { useTheme } from 'next-themes';
 import Link from 'next/link';
 import { SiGithub, SiInstagram, SiYoutube } from '@icons-pack/react-simple-icons';
@@ -14,8 +14,8 @@ function Tooltip({ children, text }: { children: React.ReactNode; text: string }
       {children}
       <span
         role='tooltip'
-        className='absolute bottom-full mb-2 left-1/2 -translate-x-1/2 
-                   opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 
+        className='absolute bottom-full mb-2 left-1/2 -translate-x-1/2
+                   opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0
                    transition-all duration-500 ease-in-out text-(--secondary)'
       >
         {text}
@@ -32,20 +32,22 @@ const socialLinks = [
 ];
 
 function ThemeSwitch() {
-  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
 
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
-  const icon = theme === 'light' ? <Circle /> : theme === 'dark' ? <Moon /> : <SunMoon />;
+  // Default icon for server render, then update on client after mount
+  const icon = !mounted ? <Circle /> : theme === 'light' ? <Circle /> : theme === 'dark' ? <Moon /> : <SunMoon />;
   const cycleTheme = () => {
     if (theme === 'light') setTheme('dark');
     else if (theme === 'dark') setTheme('system');
     else setTheme('light');
   };
 
-  const tooltipText = theme === 'light' ? 'Light mode' : theme === 'dark' ? 'Dark mode' : 'System theme';
+  const tooltipText = !mounted ? 'Light mode' : theme === 'light' ? 'Light mode' : theme === 'dark' ? 'Dark mode' : 'System theme';
 
   return (
     <Tooltip text={tooltipText}>

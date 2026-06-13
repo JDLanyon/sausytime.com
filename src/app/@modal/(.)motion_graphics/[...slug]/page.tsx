@@ -1,11 +1,20 @@
 import { notFound } from "next/navigation";
-import { getProjectMeta, fetchReadme } from "@/lib/projects";
+import { getProjectMeta, fetchReadme, getAllProjectSlugs } from "@/lib/projects";
 import { ProjectModal } from "@/app/components/project_modal";
 
 import type { Metadata } from "next";
 
 interface Props {
   params: Promise<{ slug: string[] }>;
+}
+
+export function generateStaticParams() {
+  return getAllProjectSlugs()
+    .filter((slug) => {
+      const meta = getProjectMeta(slug);
+      return meta?.category === "motion_graphics";
+    })
+    .map((slug) => ({ slug: [slug] }));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -70,3 +70,13 @@ export async function fetchReadme(repo: string): Promise<string | null> {
     return null;
   }
 }
+
+/** List all project slugs for static generation */
+export function getAllProjectSlugs(): string[] {
+  const dir = path.resolve("src/content/projects");
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => f.replace(/\.md$/, ""));
+}

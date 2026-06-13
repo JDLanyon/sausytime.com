@@ -1,5 +1,4 @@
-name: Deploy Next.js Developer Portfolio
-
+name: Deploy to Cloudflare Pages
 on:
   push:
     branches: [ main ]
@@ -7,50 +6,36 @@ on:
 
 jobs:
   deploy:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: write
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
-      - name: Install dependencies and build
-        run: |
-          npm ci
-          npm run build
+      - name: Install dependencies
+        run: npm ci
 
-      - name: Prepare deployment directory
-        run: |
-          # Create directory if missing (already exists, but ensure it)
-          mkdir -p /var/www/sausytime.com
-          # Clean it
-          rm -rf /var/www/sausytime.com/*
+      - name: Build for Cloudflare Pages
+        run: npm run pages:build
 
-      - name: Copy application files
+      - name: Strip oversized files (>25 MiB) for Cloudflare Pages
         run: |
-          # Set umask so new files are group-writable (jdl group)
-          umask 002
-          cp -r .next /var/www/sausytime.com/
-          cp -r public /var/www/sausytime.com/
-          cp package.json package-lock.json next.config.js /var/www/sausytime.com/ 2>/dev/null || true
+          find .vercel/output/static -type f -size +25M -delete -print
 
-      - name: Install production dependencies
-        run: |
-          cd /var/www/sausytime.com
-          umask 002
-          npm ci --omit=dev --no-audit --no-fund
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy .vercel/output/static --project-name=sausytime-com
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Restart the systemd service
-        run: |
-          systemctl restart sausytime.com
-          sleep 5
-          systemctl status sausytime.com --no-pager
-
-      - name: Verify deployment
-        run: |
-          curl --fail http://localhost:3000 || exit 1

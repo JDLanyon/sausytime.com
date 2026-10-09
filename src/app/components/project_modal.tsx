@@ -1,5 +1,7 @@
-import { Modal } from "@/app/components/modal";
-import Button from "@/app/components/button";
+'use client';
+
+import { useRouter } from "next/navigation";
+import { Modal, Button } from "@jdlanyon/lotus-library/react";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
@@ -46,21 +48,29 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ meta, readme }: ProjectModalProps) {
+  const router = useRouter();
   const isMotion = meta.category === "motion_graphics";
   const hasRepo = !!meta.repo;
 
-  return (
-    <Modal>
-      <div>
-        {/* GitHub button */}
-        {hasRepo && meta.repo && (
-          <div className="flex absolute left-4 top-4 transform">
-            <Button text="View on GitHub" href={meta.repo} target_blank>
-              <SiGithub />
-            </Button>
-          </div>
-        )}
+  function close() {
+    router.back();
+    router.refresh();
+  }
 
+  return (
+    <Modal
+      open
+      onClose={close}
+      signature={null}
+      headerActionsLeft={
+        hasRepo && meta.repo ? (
+          <Button text="View on GitHub" href={meta.repo} targetBlank>
+            <SiGithub />
+          </Button>
+        ) : null
+      }
+    >
+      <div>
         {/* Heading */}
         <h1 className="text-center m-0 mb-8">{meta.title}</h1>
 
@@ -90,3 +100,5 @@ export function ProjectModal({ meta, readme }: ProjectModalProps) {
     </Modal>
   );
 }
+
+export default ProjectModal;

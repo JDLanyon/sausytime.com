@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from 'next/link'
 
-import Footer from "@/app/components/footer";
-import Nav from "@/app/components/nav";
+import { Footer, Nav } from "@jdlanyon/lotus-library/react";
 
 
 

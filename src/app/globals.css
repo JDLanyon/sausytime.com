@@ -18,6 +18,23 @@
   --background: #eee;
 }
 
+/* Map the lotus-library tokens onto this site's identity tokens so the package
+   components share one palette with the local styles. */
+:root,
+[data-theme="dark"] {
+  --lotus-primary: var(--primary);
+  --lotus-secondary: var(--secondary);
+  --lotus-background: var(--background);
+  --lotus-border-color: var(--secondary);
+}
+
+[data-theme="light"] {
+  --lotus-primary: var(--primary);
+  --lotus-secondary: var(--secondary);
+  --lotus-background: var(--background);
+  --lotus-border-color: var(--secondary);
+}
+
 body {
   background: var(--background);
   color: var(--primary);

@@ -53,6 +53,8 @@ The overall style for the portfolio is to be as minimal as possible, drawing att
 
 If you find have any questions or suggestions, find some of my work inspiring, or just want to reach out, don't hesitate to <a href="#contact">contact me</a> :>
 
+
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -62,33 +64,34 @@ If you find have any questions or suggestions, find some of my work inspiring, o
 This project was built with [Next.js](https://nextjs.org/) using the app router.
 
 **Packages & Tools Used;**
-- [GitHub Pages](https://pages.github.com) - deployment
+- [Cloudflare Pages](https://pages.cloudflare.com/) - deployment
 - [lucide](https://lucide.dev/) - icons
 - [Next Themes](https://github.com/pacocoursey/next-themes) - theming
 - [Overpass](https://fonts.google.com/specimen/Overpass) - font
 - [React Simple Icons](https://simpleicons.org/) - icons
 
+> Deployed via GitHub Actions with LLM assistance. See [AGENTS.md](./AGENTS.md) for the CI/CD context.
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- roadmap -->
-## Vague Roadmap
+## Changelog
 
 - [x] Custom 404
 - [x] Add CAB302 Project (Task Tank)
 - [x] Add tags to projects
 - [x] Update to a structured readme
-- [ ] Allow System Theme
-- [ ] Add modal content for remaining projects;
-  - [ ] CAB302 (Task Tank)
-  - [ ] CAB401 (Parallel Processing Analysis)
-  - [ ] IGB383 (Boids and State Machines)
-  - [ ] CAB201 (Mates Rates - CLI)
-  - [ ] CAB301 (Tool Library - CLI)
-- [ ] Modal content fallbacks
-  - [ ] Pull readme data from GitHub
-  - [ ] fallback to displaying remaining available data on selected project
+- [x] Allow System Theme
+- [x] Project modal refactor
+  - [x] Modals fetch from GitHub readmes
+  - [x] Local markdown file fallback
+- [x] Migrate to cloudflare pages
+- [ ] Rewrite About page
+- [ ] Contact form
+- [ ] Blog
 
+> Will be focussing on other projects for a while.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

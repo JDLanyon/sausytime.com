@@ -1,10 +1,11 @@
 // Import global styles and fonts
 import { Overpass, Overpass_Mono, Doto } from "next/font/google";
-import Button from '@/app/components/button'
-import Footer from '@/app/components/footer'
+import { Button, Footer } from '@jdlanyon/lotus-library/react';
+import { LotusNextProvider } from '@jdlanyon/lotus-library/react/next';
 import { ThemeProvider } from 'next-themes';
 
 import "./globals.css";
+import '@jdlanyon/lotus-library/style.css';
 
 
 // fonts
@@ -31,15 +32,17 @@ export default function GlobalNotFound() {
   return (
     <html lang="en" className={`${overpass.variable} ${overpass_mono.variable} ${doto.variable}`} suppressHydrationWarning>
       <body className="min-h-screen">
-        <ThemeProvider defaultTheme="dark" enableSystem={false}>
-          <div className="grid items-center justify-items-center h-screen w-screen p-8 gap-16 relative">
-            <main className="flex flex-col gap-8 items-center text-center">
-              <h1>404</h1>
-              <h3>Page not found :&lt;</h3>
-              <Button text="Home" href="/"/>
-            </main>
-          </div>
-          <Footer />
+        <ThemeProvider defaultTheme="dark" enableSystem={false} attribute="data-theme">
+          <LotusNextProvider>
+            <div className="grid items-center justify-items-center h-screen w-screen p-8 gap-16 relative">
+              <main className="flex flex-col gap-8 items-center text-center">
+                <h1>404</h1>
+                <h3>Page not found :&lt;</h3>
+                <Button text="Home" href="/"/>
+              </main>
+            </div>
+            <Footer />
+          </LotusNextProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,8 +1,6 @@
-import GeneratePanels from "@/app/components/panel";
+import Link from "next/link";
+import { PanelGrid, Button, Footer, Nav } from "@jdlanyon/lotus-library/react";
 import { MOTION_GRAPHICS } from "@/app/project_data"
-import Button from "@/app/components/button";
-import Footer from "@/app/components/footer";
-import Nav from "@/app/components/nav";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,9 +18,21 @@ export default function MotionGraphics() {
           <Button text="Full Projects" href="#full_projects" />
         </div>
         <h2 id="snippets">Snippets</h2>
-        <GeneratePanels path="/motion_graphics/snippets" panel_data={MOTION_GRAPHICS.SNIPPETS} />
+        <PanelGrid
+          basePath="/motion_graphics/snippets"
+          thumbnailPath="/motion_graphics/snippets"
+          thumbnailDefaultsId
+          linkComponent={Link}
+          panels={MOTION_GRAPHICS.SNIPPETS}
+        />
         <h2 id="full_projects">Full Projects</h2>
-        <GeneratePanels path="/motion_graphics/full_projects" panel_data={MOTION_GRAPHICS.FULL_PROJECTS} />
+        <PanelGrid
+          basePath="/motion_graphics/full_projects"
+          thumbnailPath="/motion_graphics/full_projects"
+          thumbnailDefaultsId
+          linkComponent={Link}
+          panels={MOTION_GRAPHICS.FULL_PROJECTS}
+        />
       </div>
       <Footer />
     </section>

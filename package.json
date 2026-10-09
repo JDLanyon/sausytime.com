@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^12.4.0",
+    "@jdlanyon/lotus-library": "file:../lotus-library/jdlanyon-lotus-library-0.1.6.tgz",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.487.0",
     "next": "^15.2.4",

@@ -1,10 +1,8 @@
 import React from "react";
 
-import GeneratePanels from "@/app/components/panel";
+import Link from "next/link";
+import { PanelGrid, Button, Footer, Nav } from "@jdlanyon/lotus-library/react";
 import { PROGRAMMING } from "@/app/project_data"
-import Button from "@/app/components/button";
-import Footer from "@/app/components/footer";
-import Nav from "@/app/components/nav";
 
 
 
@@ -24,7 +22,13 @@ export default function Programming() {
             <Button text="Uni Projects" href="#uni" />
           </div>
           <h2 id="uni">Uni Projects</h2>
-          <GeneratePanels path="/programming/uni" panel_data={PROGRAMMING.UNI} />
+          <PanelGrid
+            basePath="/programming/uni"
+            thumbnailPath="/programming/uni"
+            thumbnailDefaultsId
+            linkComponent={Link}
+            panels={PROGRAMMING.UNI}
+          />
         </div>
       <Footer />
     </section>

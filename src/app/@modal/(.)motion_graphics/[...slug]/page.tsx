@@ -10,13 +10,10 @@ interface Props {
 
 export function generateStaticParams() {
   return getAllProjectSlugs()
-    .filter((slug) => {
-      const meta = getProjectMeta(slug);
-      return meta?.category === "motion_graphics";
-    })
-    .map((slug) => ({ slug: [slug] }));
+    .map((slug) => ({ slug, meta: getProjectMeta(slug) }))
+    .filter(({ meta }) => meta?.category === "motion_graphics" && meta.subcategory)
+    .map(({ slug, meta }) => ({ slug: [meta!.subcategory!, slug] }));
 }
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const meta = getProjectMeta(slug[slug.length - 1]);
@@ -35,3 +32,4 @@ export default async function Page({ params }: Props) {
 
   return <ProjectModal meta={meta} readme={readme} />;
 }
+

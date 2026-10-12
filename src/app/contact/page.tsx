@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Link from 'next/link'
 import { Footer, Nav } from "@jdlanyon/lotus-library/react";
 import type { Metadata } from "next";
 

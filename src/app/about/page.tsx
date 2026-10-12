@@ -37,21 +37,21 @@ export default function About() {
           </div>
 
           <div className="w-full lg:flex-4 md:flex-2 float-left">
-              
+
               <h1>What is this website</h1>
-              <p>Welcome to my designer portfolio, aiming to showcase my visual talent. I'm currently working on a developer portfolio while in my final year at QUT.</p>
+              <p>Welcome to my designer portfolio, aiming to showcase my visual talent. I&apos;m currently working on a developer portfolio while in my final year at QUT.</p>
               <p>This is my first real production project outside of uni, designed with responsive and minimal design in mind, built with Next.js, deployed with cloudflare and self hosted!. More details can be found
                 {' '}<Link href={`/programming/portfolio`} passHref className="underline hover:underline-offset-4 text-(--secondary)">here</Link>!</p>
-              
+
               <h1>Who am I?</h1>
-              <p>I'm Jackson Lanyon, a massive advocate for self expression combining several disciplines to create immersive visuals.</p>
+              <p>I&apos;m Jackson Lanyon, a massive advocate for self expression combining several disciplines to create immersive visuals.</p>
 
               <h2>Lotus imagery</h2>
               <p>This flower is something I highly resonate with, blooming after growing through 2 metres of mud.</p>
-              
+
               <h2>Education</h2>
               <p>Currently I&apos;m in my final year studying a <b>Bachelor of Interactive Environments at QUT</b>. Outside of study my focus is on motion graphics and recreational programming.</p>
-              
+
               <h2>Interests</h2>
               <ul>
                 <li>Programming</li>
@@ -67,7 +67,7 @@ export default function About() {
               <p>There&apos;s something truly nice about viewing programming as an artform and I hope to showcase that in time with high effort video editing.</p>
               <p>Anything from <b>Motion Graphics</b>, <b>Game development</b>, <b>Web Development</b> and <b>Graphic design</b> are where my skills lay</p>
               <br/>
-              <p>Currently I'm working on a developer portfolio, completing uni and another real world project 👀</p>
+              <p>Currently I&apos;m working on a developer portfolio, completing uni and another real world project 👀</p>
               <h2>Resume</h2>
               <p>Please visit my <Link
                 className="underline hover:underline-offset-4 text-(--secondary)"

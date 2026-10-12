@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client'
 
 
@@ -51,7 +50,7 @@ export default function Home() {
 
           {/* hero */}
           <h2 className='py-8'>Heyo! o/</h2>
-          <h3 className='pb-2'>Thank you for taking the time to visit my <strong>designer</strong> portfolio, I'm{' '}
+          <h3 className='pb-2'>Thank you for taking the time to visit my <strong>designer</strong> portfolio, I&apos;m{' '}
           <Glitch names={names} />{' '} and together we will;</h3>
           <h3></h3>
           <TypeWriter headings={services} />

@@ -1,7 +1,6 @@
 import { Overpass, Overpass_Mono, Doto } from "next/font/google";
 import type { Metadata } from "next";
-import { ThemeProvider } from 'next-themes';
-import { LotusNextProvider } from '@jdlanyon/lotus-library/react/next';
+import { Providers } from '@/app/providers';
 
 import "./globals.css";
 import '@jdlanyon/lotus-library/style.css';
@@ -40,12 +39,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${overpass.variable} ${overpass_mono.variable} ${doto.variable}`} suppressHydrationWarning>
       <body className="min-h-screen">
-        <ThemeProvider defaultTheme="dark" enableSystem={false} attribute="data-theme">
-          <LotusNextProvider>
-            {modal}
-            {children}
-          </LotusNextProvider>
-        </ThemeProvider>
+        <Providers>
+          {modal}
+          {children}
+        </Providers>
       </body>
     </html>
   );

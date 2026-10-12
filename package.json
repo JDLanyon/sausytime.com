@@ -1,6 +1,6 @@
 {
   "name": "sausytime.com",
-  "version": "1.2",
+  "version": "1.3",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -8,12 +8,13 @@
     "start": "next start --hostname 127.0.0.1",
     "lint": "next lint",
     "pages:build": "next build && npx @cloudflare/next-on-pages",
+    "pages:build:strip": "npm run pages:build && find .vercel/output/static -type f -size +25M -delete -print",
     "pages:dev": "npx wrangler pages dev .vercel/output/static",
     "deploy": "npx wrangler pages deploy .vercel/output/static --project-name=sausytime-com"
   },
   "dependencies": {
     "@icons-pack/react-simple-icons": "^12.4.0",
-    "@jdlanyon/lotus-library": "file:../lotus-library/jdlanyon-lotus-library-0.1.6.tgz",
+    "@jdlanyon/lotus-library": "^0.2.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^0.487.0",
     "next": "^15.2.4",
@@ -38,3 +39,4 @@
     "wrangler": "^4.100.0"
   }
 }
+

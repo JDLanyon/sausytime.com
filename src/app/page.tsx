@@ -4,7 +4,8 @@
 import Image from 'next/image';
 
 import '@/app/globals.css';
-import { Button, Footer, TypeWriter, Glitch, GlitchLink } from '@jdlanyon/lotus-library/react';
+import { Button, TypeWriter, Glitch, GlitchLink } from '@jdlanyon/lotus-library/react';
+import { Footer } from '@/app/components/footer';
 
 
 export default function Home() {

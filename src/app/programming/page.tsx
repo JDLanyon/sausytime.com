@@ -1,7 +1,8 @@
 import React from "react";
 
 import Link from "next/link";
-import { PanelGrid, Button, Footer, Nav } from "@jdlanyon/lotus-library/react";
+import { PanelGrid, Button, Nav } from "@jdlanyon/lotus-library/react";
+import { Footer } from "@/app/components/footer";
 import { PROGRAMMING } from "@/app/project_data"
 
 

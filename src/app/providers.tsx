@@ -6,8 +6,9 @@ import { LotusNextProvider } from '@jdlanyon/lotus-library/react/next';
 /**
  * Host-side providers. `next-themes` stays the single source of truth for the
  * theme (it writes `data-theme` on <html>); we forward its state into the
- * library via `LotusNextProvider`'s `themeController` so <Footer>'s theme
- * switch reflects and updates the real theme.
+ * library via `LotusNextProvider`'s `themeController` so the library's
+ * <ThemeSwitch> reflects and updates the real theme. `enableSystem` is on so
+ * the switch's `light → dark → system` cycle has a real `system` state.
  */
 function LotusWithTheme({ children }: { children: React.ReactNode }) {
   const { theme, setTheme } = useTheme();

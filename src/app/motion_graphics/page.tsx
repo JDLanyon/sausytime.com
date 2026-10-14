@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { PanelGrid, Button, Footer, Nav } from "@jdlanyon/lotus-library/react";
+import { PanelGrid, Button, Nav } from "@jdlanyon/lotus-library/react";
+import { Footer } from "@/app/components/footer";
 import { MOTION_GRAPHICS } from "@/app/project_data"
 import type { Metadata } from "next";
 

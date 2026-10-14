@@ -1,6 +1,7 @@
 // Import global styles and fonts
 import { Overpass, Overpass_Mono, Doto } from "next/font/google";
-import { Button, Footer } from '@jdlanyon/lotus-library/react';
+import { Button } from '@jdlanyon/lotus-library/react';
+import { Footer } from '@/app/components/footer';
 import { Providers } from '@/app/providers';
 
 import "./globals.css";

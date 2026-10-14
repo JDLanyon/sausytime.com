@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { Footer, Nav } from "@jdlanyon/lotus-library/react";
+import { Nav } from "@jdlanyon/lotus-library/react";
+import { Footer } from "@/app/components/footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
